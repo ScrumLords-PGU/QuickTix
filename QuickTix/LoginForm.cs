@@ -46,7 +46,6 @@ namespace QuickTix
                 if (controller.TestConnection())
                 {
                     MessageBox.Show("Login Successful");
-                    Thread.Sleep(1000);
                     this.Hide(); // Hide the login form
                     TechnicianForm mainForm = new TechnicianForm(connection);
                     mainForm.ShowDialog();

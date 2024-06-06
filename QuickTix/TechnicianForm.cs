@@ -14,9 +14,11 @@ using QuickTix;
 
 namespace QuickTix
 {
-    public partial class TechnicianForm : LoginForm
+    public partial class TechnicianForm : Form
     {
         private SqlConnection connection;
+           
+
         public TechnicianForm(SqlConnection sqlConnection)
         {
             InitializeComponent();
@@ -27,20 +29,32 @@ namespace QuickTix
         {
             try
             {
+                if (connection == null)
+                {
+                    MessageBox.Show("Database connection is not initialized.");
+                    return;
+                }
+
                 if (connection.State != ConnectionState.Open)
                 {
                     connection.Open();
                 }
 
-                SqlDataAdapter dataAdapter = new SqlDataAdapter("SELECT * FROM ticket", connection);
+                SqlDataAdapter dataAdapter = new SqlDataAdapter("SELECT * FROM dbo.Tickets", connection);
                 DataTable dataTable = new DataTable();
                 dataAdapter.Fill(dataTable);
-                dataGridView1.DataSource = dataTable;
+                this.bindingSource.DataSource = dataTable;
+                this.dataGridView1.DataSource = this.bindingSource;
             }
             catch (Exception ex)
             {
                 MessageBox.Show("An error occurred: " + ex.Message);
             }
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

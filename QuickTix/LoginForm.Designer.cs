@@ -1,6 +1,6 @@
 ﻿namespace QuickTix
 {
-    partial class LoginForm
+    partial class LoginForm : Form
     {
         /// <summary>
         /// Required designer variable.

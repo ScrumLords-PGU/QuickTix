@@ -8,12 +8,12 @@ namespace QuickTix
         [STAThread]
         static void Main()
         {
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
-            ApplicationConfiguration.Initialize();
-            Application.Run(new AioForm());
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new LoginForm());
+            
         }
     }
 
-    //This is just a test to see if the commit goes through.
+    
 }

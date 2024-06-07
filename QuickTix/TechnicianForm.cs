@@ -109,5 +109,10 @@ namespace QuickTix
                 }
             }
         }
+
+        private void bindingSource_CurrentChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

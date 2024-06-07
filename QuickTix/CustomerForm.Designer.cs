@@ -1,6 +1,6 @@
 ﻿namespace QuickTix
 {
-    partial class CustomerForm
+    partial class UserForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,89 +28,145 @@
         /// </summary>
         private void InitializeComponent()
         {
-            button1 = new Button();
-            label9 = new Label();
-            textBox6 = new TextBox();
-            label6 = new Label();
-            textBox5 = new TextBox();
-            label5 = new Label();
+            buttonSubmit = new Button();
+            lbTicketInfo = new Label();
+            tbDetails = new TextBox();
+            lbDetails = new Label();
+            lbPriority = new Label();
+            cdPriority = new ComboBox();
+            tbLocation = new Label();
+            textBox1 = new TextBox();
+            tbSubject = new Label();
+            textBox2 = new TextBox();
             SuspendLayout();
             // 
-            // button1
+            // buttonSubmit
             // 
-            button1.Location = new Point(295, 392);
-            button1.Name = "button1";
-            button1.Size = new Size(183, 34);
-            button1.TabIndex = 24;
-            button1.Text = "Submit Ticket";
-            button1.UseVisualStyleBackColor = true;
+            buttonSubmit.Location = new Point(265, 580);
+            buttonSubmit.Margin = new Padding(2);
+            buttonSubmit.Name = "buttonSubmit";
+            buttonSubmit.Size = new Size(146, 27);
+            buttonSubmit.TabIndex = 24;
+            buttonSubmit.Text = "Submit Ticket";
+            buttonSubmit.UseVisualStyleBackColor = true;
+            buttonSubmit.Click += buttonSubmit_Click;
             // 
-            // label9
+            // lbTicketInfo
             // 
-            label9.AutoSize = true;
-            label9.Location = new Point(252, 24);
-            label9.Name = "label9";
-            label9.Size = new Size(160, 25);
-            label9.TabIndex = 23;
-            label9.Text = "Ticket Information:";
+            lbTicketInfo.AutoSize = true;
+            lbTicketInfo.Location = new Point(287, 9);
+            lbTicketInfo.Margin = new Padding(2, 0, 2, 0);
+            lbTicketInfo.Name = "lbTicketInfo";
+            lbTicketInfo.Size = new Size(133, 20);
+            lbTicketInfo.TabIndex = 23;
+            lbTicketInfo.Text = "Ticket Information:";
             // 
-            // textBox6
+            // tbDetails
             // 
-            textBox6.Location = new Point(252, 151);
-            textBox6.Multiline = true;
-            textBox6.Name = "textBox6";
-            textBox6.Size = new Size(296, 207);
-            textBox6.TabIndex = 22;
+            tbDetails.Location = new Point(229, 389);
+            tbDetails.Margin = new Padding(2);
+            tbDetails.Multiline = true;
+            tbDetails.Name = "tbDetails";
+            tbDetails.Size = new Size(238, 166);
+            tbDetails.TabIndex = 22;
             // 
-            // label6
+            // lbDetails
             // 
-            label6.AutoSize = true;
-            label6.Location = new Point(252, 123);
-            label6.Name = "label6";
-            label6.Size = new Size(103, 25);
-            label6.TabIndex = 21;
-            label6.Text = "Comments:";
+            lbDetails.AutoSize = true;
+            lbDetails.Location = new Point(229, 348);
+            lbDetails.Margin = new Padding(2, 0, 2, 0);
+            lbDetails.Name = "lbDetails";
+            lbDetails.Size = new Size(58, 20);
+            lbDetails.TabIndex = 21;
+            lbDetails.Text = "Details:";
             // 
-            // textBox5
+            // lbPriority
             // 
-            textBox5.Location = new Point(353, 66);
-            textBox5.Name = "textBox5";
-            textBox5.Size = new Size(195, 31);
-            textBox5.TabIndex = 20;
+            lbPriority.AutoSize = true;
+            lbPriority.Location = new Point(231, 187);
+            lbPriority.Margin = new Padding(2, 0, 2, 0);
+            lbPriority.Name = "lbPriority";
+            lbPriority.Size = new Size(59, 20);
+            lbPriority.TabIndex = 19;
+            lbPriority.Text = "Priority:";
             // 
-            // label5
+            // cdPriority
             // 
-            label5.AutoSize = true;
-            label5.Location = new Point(252, 72);
-            label5.Name = "label5";
-            label5.Size = new Size(64, 25);
-            label5.TabIndex = 19;
-            label5.Text = "Status:";
+            cdPriority.FormattingEnabled = true;
+            cdPriority.Items.AddRange(new object[] { "Low", "Medium", "High", "Urgent" });
+            cdPriority.Location = new Point(316, 187);
+            cdPriority.Name = "cdPriority";
+            cdPriority.Size = new Size(151, 28);
+            cdPriority.TabIndex = 25;
+            cdPriority.SelectedIndexChanged += cbPriority_SelectedIndexChanged;
             // 
-            // CustomerForm
+            // tbLocation
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            tbLocation.AutoSize = true;
+            tbLocation.Location = new Point(231, 66);
+            tbLocation.Name = "tbLocation";
+            tbLocation.Size = new Size(69, 20);
+            tbLocation.TabIndex = 26;
+            tbLocation.Text = "Location:";
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(229, 102);
+            textBox1.Multiline = true;
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(238, 27);
+            textBox1.TabIndex = 27;
+            // 
+            // tbSubject
+            // 
+            tbSubject.AutoSize = true;
+            tbSubject.Location = new Point(229, 251);
+            tbSubject.Name = "tbSubject";
+            tbSubject.Size = new Size(61, 20);
+            tbSubject.TabIndex = 28;
+            tbSubject.Text = "Subject:";
+            // 
+            // textBox2
+            // 
+            textBox2.Location = new Point(229, 289);
+            textBox2.Multiline = true;
+            textBox2.Name = "textBox2";
+            textBox2.Size = new Size(238, 34);
+            textBox2.TabIndex = 29;
+            // 
+            // UserForm
+            // 
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Controls.Add(button1);
-            Controls.Add(label9);
-            Controls.Add(textBox6);
-            Controls.Add(label6);
-            Controls.Add(textBox5);
-            Controls.Add(label5);
-            Name = "CustomerForm";
-            Text = "Form2";
+            ClientSize = new Size(749, 642);
+            Controls.Add(textBox2);
+            Controls.Add(tbSubject);
+            Controls.Add(textBox1);
+            Controls.Add(tbLocation);
+            Controls.Add(cdPriority);
+            Controls.Add(buttonSubmit);
+            Controls.Add(lbTicketInfo);
+            Controls.Add(tbDetails);
+            Controls.Add(lbDetails);
+            Controls.Add(lbPriority);
+            Margin = new Padding(2);
+            Name = "UserForm";
+            Text = "UserForm";
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private Button button1;
-        private Label label9;
-        private TextBox textBox6;
-        private Label label6;
-        private TextBox textBox5;
-        private Label label5;
+        private Button buttonSubmit;
+        private Label lbTicketInfo;
+        private TextBox tbDetails;
+        private Label lbDetails;
+        private Label lbPriority;
+        private ComboBox cdPriority;
+        private Label tbLocation;
+        private TextBox textBox1;
+        private Label tbSubject;
+        private TextBox textBox2;
     }
 }

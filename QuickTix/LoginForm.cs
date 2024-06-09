@@ -48,7 +48,8 @@ namespace QuickTix
                     MessageBox.Show("Login Successful");
                     Thread.Sleep(1000);
                     this.Hide(); // Hide the login form
-                    TechnicianForm mainForm = new TechnicianForm(connection);
+                   // TechnicianForm mainForm = new TechnicianForm(connection);
+                    TechnicianView mainForm = new TechnicianView();
                     mainForm.ShowDialog();
                     this.Close(); // Close the login form after the main form is closed
                 }

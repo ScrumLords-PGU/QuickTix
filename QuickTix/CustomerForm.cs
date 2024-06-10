@@ -1,4 +1,5 @@
-﻿using System;
+using Microsoft.Data.SqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,21 +8,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Microsoft.Data.SqlClient;
-using QuickTix;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace QuickTix
 {
-    public partial class UserForm : Form
+    public partial class CustomerForm : Form
     {
         private SqlConnection connection;
         private string priority;
-        public UserForm()
+         public CustomerForm(SqlConnection sqlConnection)
         {
             InitializeComponent();
+            this.connection = sqlConnection;
+            LoadData();
         }
 
+
+
+        //Method loads data from database, to fill in form known information (name, email, phone ect)
+        private void LoadData()
+        {
+
+        }
         //Returns chosen status value as string
         private void cbPriority_SelectedIndexChanged(object sender, EventArgs e)
         {

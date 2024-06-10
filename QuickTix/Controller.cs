@@ -39,6 +39,7 @@ public class Controller
             return false;
         }
     }
+   
     public DataTable GetData(string query)
     {
         DataTable dataTable = new DataTable();

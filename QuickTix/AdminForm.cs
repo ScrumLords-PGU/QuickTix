@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,10 +16,20 @@ namespace QuickTix
     public partial class AdminForm : Form
     {
         private SqlConnection connection;
-        private string priority;
-        public AdminForm()
+        public AdminForm(SqlConnection sqlConnection)
         {
-            InitializeComponent();
+
+            this.connection = sqlConnection;
+            LoadData();
+        }
+        private void LoadData()
+        {
+
+        }
+
+        private void InitializeComponent()
+        {
+
         }
 
         private void AdminForm_Load(object sender, EventArgs e)

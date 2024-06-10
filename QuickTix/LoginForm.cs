@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.Windows.Forms;
-
 namespace QuickTix
 {
     public partial class LoginForm : Form
     {
+        private SqlConnection connection;
+
         public LoginForm()
         {
             InitializeComponent();
@@ -21,37 +22,60 @@ namespace QuickTix
         {
             string user_name = tbUsername.Text;
             string password = tbPassword.Text;
-            string selectedRole = roleSelection.Text;
+            string quicktixdbConnectionString = $"Server=tcp:quicktixsrvr.database.windows.net,1433;Initial Catalog=quicktixdb;Persist Security Info=False;User ID={user_name};Password={password};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+            
 
             try
             {
-                if (selectedRole == "Admin" && VerifyUserRole(user_name, password, "master", selectedRole))
-                {
-                    this.Hide();
-                    AdminForm mainForm = new AdminForm(user_name, password);
-                    mainForm.ShowDialog();
-                    this.Close();
-                }
-                else if ((selectedRole == "Technician" || selectedRole == "TechnicianView" || selectedRole == "Customer") && VerifyUserRole(user_name, password, "quicktixdb", selectedRole))
-                {
-                    this.Hide();
+                connection = new SqlConnection(quicktixdbConnectionString);
+                connection.Open();
 
-                    if (selectedRole == "Technician" || selectedRole == "TechnicianView")
-                    {
-                        TechnicianForm mainForm = new TechnicianForm(CreateConnection("quicktixdb", user_name, password));
-                        mainForm.ShowDialog();
-                    }
-                    else if (selectedRole == "Customer")
-                    {
-                        CustomerForm mainForm = new CustomerForm(CreateConnection("quicktixdb", user_name, password));
-                        mainForm.ShowDialog();
-                    }
-
-                    this.Close();
+                if (roleSelection.Text == "")
+                {
+                    MessageBox.Show("Select role from dropdown box");
                 }
                 else
                 {
-                    MessageBox.Show("Access denied: You do not have the required role.");
+                    if (VerifyUserRole(user_name, password, roleSelection.Text))
+                    {
+                        Controller userController = new Controller(connection);
+
+                        if (userController.TestConnection())
+                        {
+                            this.Hide(); // Hide the Login form
+
+                            if (roleSelection.Text == "Admin")
+                            {
+                                AdminForm mainForm = new AdminForm(user_name, password);
+                                mainForm.ShowDialog();
+                            }
+                            else if (roleSelection.Text == "Technician") 
+                            {
+                                TechnicianForm mainForm = new TechnicianForm(connection);
+                                mainForm.ShowDialog();
+                            }
+                            else if (roleSelection.Text ==  "TechnicianView")
+                                {
+                                TechnicianView mainForm = new TechnicianView(connection);
+                                mainForm.ShowDialog();
+                            }
+                            else if (roleSelection.Text == "Customer")
+                            {
+                                CustomerForm mainForm = new CustomerForm(connection);
+                                mainForm.ShowDialog();
+                            }
+
+                            this.Close(); // Close the login form after the main form is closed
+                        }
+                        else
+                        {
+                            MessageBox.Show("Access denied: You do not have the required role.");
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Access denied: You do not have the required role.");
+                    }
                 }
             }
             catch (Exception ex)
@@ -60,21 +84,16 @@ namespace QuickTix
             }
         }
 
-        private SqlConnection CreateConnection(string database, string username, string password)
-        {
-            string connectionString = $"Server=tcp:quicktixsrvr.database.windows.net,1433;Initial Catalog={database};Persist Security Info=False;User ID={username};Password={password};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
-            return new SqlConnection(connectionString);
-        }
-
-        private bool VerifyUserRole(string username, string password, string database, string role)
+        private bool VerifyUserRole(string username, string password, string role)
         {
             try
             {
-                using (SqlConnection connection = CreateConnection(database, username, password))
+                string connectionString = $"Server=tcp:quicktixsrvr.database.windows.net,1433;Initial Catalog=quicktixdb;Persist Security Info=False;User ID={username};Password={password};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+                using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
 
-                    string query = "SELECT Role FROM dbo.Users WHERE UserName = @Username AND Password = @Password";
+                    string query = "SELECT Role FROM dbo.Users WHERE UserName = @Username";
                     using (SqlCommand cmd = new SqlCommand(query, connection))
                     {
                         cmd.Parameters.AddWithValue("@Username", username);
@@ -113,4 +132,3 @@ namespace QuickTix
         }
     }
 }
-

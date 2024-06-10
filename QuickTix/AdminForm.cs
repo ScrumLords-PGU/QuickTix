@@ -36,7 +36,7 @@ namespace QuickTix
             masterConnection = new SqlConnection(masterConnectionString);
             quicktixdbConnection = new SqlConnection(quicktixdbConnectionString);
         }
-        
+
         private void btnCreateUser_Click(object sender, EventArgs e)
         {
             string newUsername = txtNewUsername.Text;
@@ -75,7 +75,43 @@ namespace QuickTix
                 {
                     quicktixdbConnection.Close();
                 }
-            } 
-       }
+            }
+        }
+
+        private void tchView_Click(object sender, EventArgs e)
+        {
+            if (quicktixdbConnection.State == ConnectionState.Closed)
+            {
+                quicktixdbConnection.Open();
+            }
+                TechnicianView mainForm = new TechnicianView(quicktixdbConnection);
+                mainForm.ShowDialog();
+                mainForm.FormClosed += (s, args) => quicktixdbConnection.Close();
+            
+
+        }
+
+        private void tchForm_Click(object sender, EventArgs e)
+        {
+            if (quicktixdbConnection.State == ConnectionState.Closed)
+            {
+                quicktixdbConnection.Open();
+            }
+            TechnicianForm mainForm = new TechnicianForm(quicktixdbConnection);
+            mainForm.ShowDialog();
+            mainForm.FormClosed += (s, args) => quicktixdbConnection.Close();
+        }
+
+        private void cstForm_Click(object sender, EventArgs e)
+        {
+
+            if (quicktixdbConnection.State == ConnectionState.Closed)
+            {
+                quicktixdbConnection.Open();
+            }
+            CustomerForm mainForm = new CustomerForm(quicktixdbConnection);
+            mainForm.ShowDialog();
+            mainForm.FormClosed += (s, args) => quicktixdbConnection.Close();
+        }
     }
 }

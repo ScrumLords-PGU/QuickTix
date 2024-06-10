@@ -40,7 +40,7 @@
             // tbPassword
             // 
             tbPassword.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            tbPassword.Location = new Point(160, 144);
+            tbPassword.Location = new Point(161, 140);
             tbPassword.Margin = new Padding(2);
             tbPassword.Name = "tbPassword";
             tbPassword.Size = new Size(224, 29);
@@ -61,7 +61,7 @@
             // tbUsername
             // 
             tbUsername.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            tbUsername.Location = new Point(160, 104);
+            tbUsername.Location = new Point(161, 104);
             tbUsername.Margin = new Padding(2);
             tbUsername.Name = "tbUsername";
             tbUsername.Size = new Size(224, 29);

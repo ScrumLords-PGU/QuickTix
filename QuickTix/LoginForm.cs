@@ -7,8 +7,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
-using Microsoft.Data.SqlClient;
+using System.Data.SqlClient;
 using Microsoft.VisualBasic.ApplicationServices;
 using System.DirectoryServices.ActiveDirectory;
 using QuickTix;
@@ -26,12 +25,15 @@ namespace QuickTix
         {
             InitializeComponent();
             // Initialize the ComboBox
+            
             roleSelection.Items.Add("Customer");
             roleSelection.Items.Add("Technician");
+            roleSelection.Items.Add("TechnicianView");
             roleSelection.Items.Add("Admin");
 
             // Set the DropDownStyle to DropDownList to disable typing
             roleSelection.DropDownStyle = ComboBoxStyle.DropDownList;
+            roleSelection.SelectedIndex = 0;
         }
 
         public void btnConnect_Click(object sender, EventArgs e)
@@ -67,6 +69,18 @@ namespace QuickTix
                             this.Close(); // Close the login form after the main form is closed
                         }
                     }
+
+                    if (roleSelection.Text == "TechnicianView")
+                    {
+                        if (userController.TestConnection())
+                        {
+                            this.Hide(); // Hide the Login form
+                            TechnicianView mainForm = new TechnicianView(connection);
+                            mainForm.ShowDialog();
+                            this.Close(); // Close the login form after the main form is closed
+                        }
+                    }
+
                     else if (roleSelection.Text == "Admin")
                     {
                         if (userController.TestConnection())

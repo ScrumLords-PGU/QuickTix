@@ -1,4 +1,4 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using System.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,7 +17,6 @@ namespace QuickTix
     public partial class TechnicianForm : Form
     {
         private SqlConnection connection;
-
 
         public TechnicianForm(SqlConnection sqlConnection)
         {

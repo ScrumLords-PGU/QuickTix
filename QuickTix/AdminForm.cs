@@ -27,10 +27,6 @@ namespace QuickTix
 
         }
 
-        private void InitializeComponent()
-        {
-
-        }
 
         private void AdminForm_Load(object sender, EventArgs e)
         {

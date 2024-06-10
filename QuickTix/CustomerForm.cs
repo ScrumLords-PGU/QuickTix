@@ -1,4 +1,5 @@
-﻿using System;
+using Microsoft.Data.SqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,20 +13,17 @@ namespace QuickTix
 {
     public partial class CustomerForm : Form
     {
-<<<<<<< Updated upstream
-        public CustomerForm()
-=======
         private SqlConnection connection;
         private string priority;
-        public CustomerForm(SqlConnection sqlConnection)
->>>>>>> Stashed changes
+         public CustomerForm(SqlConnection sqlConnection)
         {
             InitializeComponent();
             this.connection = sqlConnection;
             LoadData();
         }
-<<<<<<< Updated upstream
-=======
+
+
+
         //Method loads data from database, to fill in form known information (name, email, phone ect)
         private void LoadData()
         {
@@ -78,6 +76,5 @@ namespace QuickTix
 
             MessageBox.Show("Ticket submitted succesfully!");
         }
->>>>>>> Stashed changes
     }
 }

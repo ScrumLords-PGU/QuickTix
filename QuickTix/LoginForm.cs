@@ -3,6 +3,25 @@ using System.Data.SqlClient;
 using System.Windows.Forms;
 namespace QuickTix
 {
+ /*Test accounts
+  
+  Admin: Access to all forms
+  Technician: Access to TechnicianForm, TechnicianViewForm, CustomerForm
+  Customer: Access to CustomerForm only
+  Developers account I created for everyone are Admin accounts.
+
+   AliceSmith password123! Technician
+   BobJohnson password123! Technician
+   CharlieBrown password123! Technician
+   DianaPrince password123! Technician
+   EvanWright password123! Technician
+   FrankMiller password123!	Customer
+   GraceHopper password123!	Customer
+   HenryFord password123!	Customer
+   IreneCurie password123!	Customer
+   JackLondon password123!	Customer
+    
+ */
     public partial class LoginForm : Form
     {
         private SqlConnection connection;

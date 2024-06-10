@@ -19,13 +19,19 @@ namespace QuickTix
         private string adminPassword;
         private SqlConnection masterConnection;
         private SqlConnection quicktixdbConnection;
-
+        
         public AdminForm(string username, string password)
         {
             InitializeComponent();
             adminUsername = username;
             adminPassword = password;
             InitializeConnections();
+            roleAssignment.Items.Add("Customer");
+            roleAssignment.Items.Add("Technician");
+            roleAssignment.Items.Add("Admin");
+            roleAssignment.DropDownStyle = ComboBoxStyle.DropDownList; 
+            roleAssignment.SelectedIndex = 0;
+
         }
 
         private void InitializeConnections()

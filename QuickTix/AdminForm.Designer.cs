@@ -37,13 +37,14 @@
             tchForm = new Button();
             cstForm = new Button();
             flowLayoutPanel1 = new FlowLayoutPanel();
+            roleAssignment = new ComboBox();
             flowLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
             // txtNewUsername
             // 
             txtNewUsername.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtNewUsername.Location = new Point(248, 184);
+            txtNewUsername.Location = new Point(253, 184);
             txtNewUsername.Name = "txtNewUsername";
             txtNewUsername.Size = new Size(248, 29);
             txtNewUsername.TabIndex = 0;
@@ -51,7 +52,7 @@
             // txtNewPassword
             // 
             txtNewPassword.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtNewPassword.Location = new Point(248, 232);
+            txtNewPassword.Location = new Point(253, 232);
             txtNewPassword.Name = "txtNewPassword";
             txtNewPassword.Size = new Size(248, 29);
             txtNewPassword.TabIndex = 1;
@@ -60,7 +61,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(145, 188);
+            label1.Location = new Point(150, 184);
             label1.Name = "label1";
             label1.Size = new Size(97, 25);
             label1.TabIndex = 2;
@@ -70,7 +71,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(145, 232);
+            label2.Location = new Point(156, 236);
             label2.Name = "label2";
             label2.Size = new Size(91, 25);
             label2.TabIndex = 3;
@@ -79,7 +80,7 @@
             // btnCreateUser
             // 
             btnCreateUser.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnCreateUser.Location = new Point(248, 295);
+            btnCreateUser.Location = new Point(253, 360);
             btnCreateUser.Name = "btnCreateUser";
             btnCreateUser.Size = new Size(248, 63);
             btnCreateUser.TabIndex = 4;
@@ -129,11 +130,20 @@
             flowLayoutPanel1.Size = new Size(454, 68);
             flowLayoutPanel1.TabIndex = 8;
             // 
+            // roleAssignment
+            // 
+            roleAssignment.FormattingEnabled = true;
+            roleAssignment.Location = new Point(291, 267);
+            roleAssignment.Name = "roleAssignment";
+            roleAssignment.Size = new Size(165, 23);
+            roleAssignment.TabIndex = 9;
+            // 
             // AdminForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(655, 482);
+            Controls.Add(roleAssignment);
             Controls.Add(flowLayoutPanel1);
             Controls.Add(btnCreateUser);
             Controls.Add(label2);
@@ -158,5 +168,6 @@
         private Button tchForm;
         private Button cstForm;
         private FlowLayoutPanel flowLayoutPanel1;
+        private ComboBox roleAssignment;
     }
 }

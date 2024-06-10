@@ -90,11 +90,16 @@ namespace QuickTix
             {
                 quicktixdbConnection.Open();
             }
-                TechnicianView mainForm = new TechnicianView(quicktixdbConnection);
-                mainForm.ShowDialog();
-                mainForm.FormClosed += (s, args) => quicktixdbConnection.Close();
-            
 
+            TechnicianView mainForm = new TechnicianView(quicktixdbConnection);
+            mainForm.Show();
+            mainForm.FormClosed += (s, args) =>
+            {
+                if (quicktixdbConnection.State == ConnectionState.Open)
+                {
+                    quicktixdbConnection.Close();
+                }
+            };
         }
 
         private void tchForm_Click(object sender, EventArgs e)
@@ -104,20 +109,31 @@ namespace QuickTix
                 quicktixdbConnection.Open();
             }
             TechnicianForm mainForm = new TechnicianForm(quicktixdbConnection);
-            mainForm.ShowDialog();
-            mainForm.FormClosed += (s, args) => quicktixdbConnection.Close();
+            mainForm.Show();
+            mainForm.FormClosed += (s, args) =>
+            {
+                if (quicktixdbConnection.State == ConnectionState.Open)
+                {
+                    quicktixdbConnection.Close();
+                }
+            };
         }
 
         private void cstForm_Click(object sender, EventArgs e)
         {
-
             if (quicktixdbConnection.State == ConnectionState.Closed)
             {
                 quicktixdbConnection.Open();
             }
             CustomerForm mainForm = new CustomerForm(quicktixdbConnection);
-            mainForm.ShowDialog();
-            mainForm.FormClosed += (s, args) => quicktixdbConnection.Close();
+            mainForm.Show();
+            mainForm.FormClosed += (s, args) =>
+            {
+                if (quicktixdbConnection.State == ConnectionState.Open)
+                {
+                    quicktixdbConnection.Close();
+                }
+            };
         }
     }
 }

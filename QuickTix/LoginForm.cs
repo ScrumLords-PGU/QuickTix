@@ -18,7 +18,7 @@ namespace QuickTix
             roleSelection.SelectedIndex = 0;
         }
 
-        public void btnConnect_Click(object sender, EventArgs e)
+        public void btnConnect_Click(object sender, EventArgs e) // Might need to be changed to public to pass infomration to other forms, or private for better security. Looking into this. 
         {
             string user_name = tbUsername.Text;
             string password = tbPassword.Text;

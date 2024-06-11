@@ -33,8 +33,7 @@
             tbUsername = new TextBox();
             label1 = new Label();
             label5 = new Label();
-            btnConnect = new Button();
-            roleSelection = new ComboBox();
+            btnLogin = new Button();
             SuspendLayout();
             // 
             // tbPassword
@@ -89,35 +88,24 @@
             label5.TabIndex = 16;
             label5.Text = "Welcome to QuickTix!";
             // 
-            // btnConnect
+            // btnLogin
             // 
-            btnConnect.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnConnect.Location = new Point(344, 184);
-            btnConnect.Margin = new Padding(2);
-            btnConnect.Name = "btnConnect";
-            btnConnect.Size = new Size(128, 56);
-            btnConnect.TabIndex = 17;
-            btnConnect.Text = "Login";
-            btnConnect.UseVisualStyleBackColor = true;
-            btnConnect.Click += btnConnect_Click;
-            // 
-            // roleSelection
-            // 
-            roleSelection.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            roleSelection.FormattingEnabled = true;
-            roleSelection.Location = new Point(152, 200);
-            roleSelection.Name = "roleSelection";
-            roleSelection.Size = new Size(168, 29);
-            roleSelection.TabIndex = 18;
-            roleSelection.Text = "Select Role";
+            btnLogin.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnLogin.Location = new Point(208, 192);
+            btnLogin.Margin = new Padding(2);
+            btnLogin.Name = "btnLogin";
+            btnLogin.Size = new Size(128, 56);
+            btnLogin.TabIndex = 17;
+            btnLogin.Text = "Login";
+            btnLogin.UseVisualStyleBackColor = true;
+            btnLogin.Click += btnConnect_Click;
             // 
             // LoginForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(560, 270);
-            Controls.Add(roleSelection);
-            Controls.Add(btnConnect);
+            Controls.Add(btnLogin);
             Controls.Add(label5);
             Controls.Add(tbPassword);
             Controls.Add(label2);
@@ -136,7 +124,6 @@
         private TextBox tbUsername;
         private Label label1;
         private Label label5;
-        private Button btnConnect;
-        private ComboBox roleSelection;
+        private Button btnLogin;
     }
 }

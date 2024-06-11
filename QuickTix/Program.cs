@@ -1,6 +1,6 @@
 namespace QuickTix
 {
-    internal static class Program
+    static class Program
     {
         /// <summary>
         ///  The main entry point for the application.
@@ -10,8 +10,9 @@ namespace QuickTix
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new LoginForm());
-            
+            LoginForm loginForm = new LoginForm();
+            Application.Run(loginForm);
+
         }
     }
 

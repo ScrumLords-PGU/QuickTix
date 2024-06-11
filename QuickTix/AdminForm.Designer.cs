@@ -38,6 +38,7 @@
             cstForm = new Button();
             flowLayoutPanel1 = new FlowLayoutPanel();
             roleAssignment = new ComboBox();
+            lgOut = new Button();
             flowLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -80,7 +81,7 @@
             // btnCreateUser
             // 
             btnCreateUser.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnCreateUser.Location = new Point(253, 360);
+            btnCreateUser.Location = new Point(240, 320);
             btnCreateUser.Name = "btnCreateUser";
             btnCreateUser.Size = new Size(248, 63);
             btnCreateUser.TabIndex = 4;
@@ -125,7 +126,7 @@
             flowLayoutPanel1.Controls.Add(tchView);
             flowLayoutPanel1.Controls.Add(tchForm);
             flowLayoutPanel1.Controls.Add(cstForm);
-            flowLayoutPanel1.Location = new Point(119, 12);
+            flowLayoutPanel1.Location = new Point(40, 8);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
             flowLayoutPanel1.Size = new Size(454, 68);
             flowLayoutPanel1.TabIndex = 8;
@@ -138,11 +139,23 @@
             roleAssignment.Size = new Size(165, 23);
             roleAssignment.TabIndex = 9;
             // 
+            // lgOut
+            // 
+            lgOut.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lgOut.Location = new Point(552, 0);
+            lgOut.Name = "lgOut";
+            lgOut.Size = new Size(104, 32);
+            lgOut.TabIndex = 10;
+            lgOut.Text = "Logout";
+            lgOut.UseVisualStyleBackColor = true;
+            lgOut.Click += lgOut_Click;
+            // 
             // AdminForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(655, 482);
+            Controls.Add(lgOut);
             Controls.Add(roleAssignment);
             Controls.Add(flowLayoutPanel1);
             Controls.Add(btnCreateUser);
@@ -169,5 +182,6 @@
         private Button cstForm;
         private FlowLayoutPanel flowLayoutPanel1;
         private ComboBox roleAssignment;
+        private Button lgOut;
     }
 }

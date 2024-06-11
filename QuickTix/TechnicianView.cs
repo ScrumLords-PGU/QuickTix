@@ -6,33 +6,63 @@ namespace QuickTix
 {
     public partial class TechnicianView : Form
     {
-        private SqlConnection connection;
+        private string techUsername;
+        private string techPassword;
+        private SqlConnection quicktixdbConnection;
 
-        public TechnicianView(SqlConnection sqlConnection)
+        public TechnicianView(string username, string password)
         {
             InitializeComponent();
-            this.connection = sqlConnection;
-            LoadData();
+            techUsername = username;
+            techPassword = password;
+            InitializeConnections();
+        }
+        private void InitializeConnections()
+        {
+            string quicktixdbConnectionString = $"Server=tcp:quicktixsrvr.database.windows.net,1433;Initial Catalog=quicktixdb;Persist Security Info=False;" +
+                $"User ID={techUsername};Password={techPassword};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+            quicktixdbConnection = new SqlConnection(quicktixdbConnectionString);
         }
         private void LoadData()
         {
             try
             {
-                if (connection == null)
+                quicktixdbConnection.Open();
+
+                if (quicktixdbConnection == null)
                 {
                     MessageBox.Show("Database connection is not initialized.");
                     return;
                 }
-
-                if (connection.State != ConnectionState.Open)
-                {
-                    connection.Open();
+                else
+                { 
+                    //populate listview1 with tickets
                 }
+
+                
+                
+
             }
             catch (Exception ex)
             {
                 MessageBox.Show("An error occurred: " + ex.Message);
             }
+        }
+        private void tchForm_Click(object sender, EventArgs e)
+        {
+            if (quicktixdbConnection.State == ConnectionState.Closed)
+            {
+                quicktixdbConnection.Open();
+            }
+            TechnicianForm mainForm = new TechnicianForm(quicktixdbConnection);
+            mainForm.Show();
+            mainForm.FormClosed += (s, args) =>
+            {
+                if (quicktixdbConnection.State == ConnectionState.Open)
+                {
+                    quicktixdbConnection.Close();
+                }
+            };
         }
         private void TechnicianView_Load(object sender, EventArgs e)
         {

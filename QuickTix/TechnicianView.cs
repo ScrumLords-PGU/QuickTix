@@ -35,12 +35,12 @@ namespace QuickTix
                     return;
                 }
                 else
-                { 
+                {
                     //populate listview1 with tickets
                 }
 
-                
-                
+
+
 
             }
             catch (Exception ex)
@@ -81,6 +81,19 @@ namespace QuickTix
         private void listView3_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void lgOut_Click(object sender, EventArgs e)
+        {
+            if (quicktixdbConnection != null && quicktixdbConnection.State == ConnectionState.Open)
+            {
+                quicktixdbConnection.Close();
+            }
+
+            // Show the LoginForm
+            Application.Restart();
+            // Close the current form (AdminForm)
+            this.Close();
         }
     }
 }

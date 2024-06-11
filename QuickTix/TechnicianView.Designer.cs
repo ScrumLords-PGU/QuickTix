@@ -63,6 +63,7 @@
             listView2 = new ListView();
             tabPage3 = new TabPage();
             listView3 = new ListView();
+            lgOut = new Button();
             button1 = new Button();
             flowLayoutPanel9 = new FlowLayoutPanel();
             label12 = new Label();
@@ -128,6 +129,7 @@
             // 
             // splitContainer1.Panel2
             // 
+            splitContainer1.Panel2.Controls.Add(lgOut);
             splitContainer1.Panel2.Controls.Add(button1);
             splitContainer1.Panel2.Controls.Add(flowLayoutPanel9);
             splitContainer1.Panel2.Controls.Add(flowLayoutPanel8);
@@ -294,6 +296,16 @@
             listView3.UseCompatibleStateImageBehavior = false;
             listView3.View = View.List;
             listView3.SelectedIndexChanged += listView3_SelectedIndexChanged;
+            // 
+            // lgOut
+            // 
+            lgOut.Location = new Point(560, 552);
+            lgOut.Name = "lgOut";
+            lgOut.Size = new Size(123, 31);
+            lgOut.TabIndex = 15;
+            lgOut.Text = "Logout";
+            lgOut.UseVisualStyleBackColor = true;
+            lgOut.Click += lgOut_Click;
             // 
             // button1
             // 
@@ -743,5 +755,6 @@
         private ListView listView1;
         private ListView listView2;
         private Button button1;
+        private Button lgOut;
     }
 }

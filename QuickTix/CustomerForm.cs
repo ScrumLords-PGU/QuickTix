@@ -15,7 +15,7 @@ namespace QuickTix
     {
         private SqlConnection connection;
         private string priority;
-         public CustomerForm(SqlConnection sqlConnection)
+        public CustomerForm(SqlConnection sqlConnection)
         {
             InitializeComponent();
             this.connection = sqlConnection;
@@ -34,13 +34,13 @@ namespace QuickTix
         {
             priority = cdPriority.SelectedItem.ToString();
         }
- 
+
         private void buttonSubmit_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(priority))
             {
                 MessageBox.Show("Please select a priority option before submitting the ticket.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return; 
+                return;
             }
 
             if (string.IsNullOrEmpty(tbDetails.Text))
@@ -75,6 +75,19 @@ namespace QuickTix
             }
 
             MessageBox.Show("Ticket submitted succesfully!");
+        }
+
+        private void lgOut_Click(object sender, EventArgs e)
+        {
+            if (connection != null && connection.State == ConnectionState.Open)
+            {
+                connection.Close();
+            }
+
+            // Show the LoginForm
+            Application.Restart();
+            // Close the current form (AdminForm)
+            this.Close();
         }
     }
 }

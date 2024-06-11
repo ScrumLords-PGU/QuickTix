@@ -62,7 +62,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(150, 184);
+            label1.Location = new Point(152, 187);
             label1.Name = "label1";
             label1.Size = new Size(97, 25);
             label1.TabIndex = 2;
@@ -72,7 +72,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(156, 236);
+            label2.Location = new Point(158, 234);
             label2.Name = "label2";
             label2.Size = new Size(91, 25);
             label2.TabIndex = 3;
@@ -134,7 +134,7 @@
             // roleAssignment
             // 
             roleAssignment.FormattingEnabled = true;
-            roleAssignment.Location = new Point(291, 267);
+            roleAssignment.Location = new Point(285, 280);
             roleAssignment.Name = "roleAssignment";
             roleAssignment.Size = new Size(165, 23);
             roleAssignment.TabIndex = 9;
@@ -142,7 +142,7 @@
             // lgOut
             // 
             lgOut.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lgOut.Location = new Point(552, 0);
+            lgOut.Location = new Point(552, 450);
             lgOut.Name = "lgOut";
             lgOut.Size = new Size(104, 32);
             lgOut.TabIndex = 10;

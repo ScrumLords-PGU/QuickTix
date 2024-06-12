@@ -94,6 +94,7 @@ namespace QuickTix
                 {
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
+                        
                         while (reader.Read())
                         {
                             technicians.Add(reader["UserName"].ToString());
@@ -118,17 +119,13 @@ namespace QuickTix
 
         private void PopulateTechnicianComboBox()
         {
-            List<string> technicians = GetTechnicianUsers();
-            bxAssigned.DataSource = technicians;
 
-            if (technicians.Count == 0)
-            {
-                MessageBox.Show("No technicians found.");
-            }
-            else
-            {
-                MessageBox.Show($"{technicians.Count} technicians loaded.");
-            }
+            List<string> technicians = GetTechnicianUsers();
+            bxAssigned.Items.Clear(); // Clear the combo box before setting the data source
+            bxAssigned.DataSource = technicians;
+            bxAssigned.SelectedIndex = -1; // Ensure no item is selected initially
+
+ 
         }
 
         private void LoadCategories()

@@ -28,33 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            ListViewItem listViewItem1 = new ListViewItem(new string[] { "PC not turning on." }, -1, Color.Empty, Color.Empty, new Font("Segoe UI", 14F));
-            ListViewItem listViewItem2 = new ListViewItem(new string[] { "HELP!" }, -1, Color.Empty, Color.Empty, new Font("Segoe UI", 14F));
-            ListViewItem listViewItem3 = new ListViewItem(new string[] { "I can't connect to the internet." }, -1, Color.Empty, Color.Empty, new Font("Segoe UI", 14F));
-            ListViewItem listViewItem4 = new ListViewItem(new string[] { "Laptop stop working" }, -1, Color.Empty, Color.Empty, new Font("Segoe UI", 14F));
-            ListViewItem listViewItem5 = new ListViewItem(new string[] { "Desktop trouble" }, -1, Color.Empty, Color.Empty, new Font("Segoe UI", 14F));
-            ListViewItem listViewItem6 = new ListViewItem(new string[] { "My computer will not start." }, -1, Color.Empty, SystemColors.Window, new Font("Segoe UI", 14F));
-            ListViewItem listViewItem7 = new ListViewItem(new string[] { "I see a blue screen, what should I do?" }, -1, Color.Empty, Color.Empty, new Font("Segoe UI", 14F));
-            ListViewItem listViewItem8 = new ListViewItem(new string[] { "The program is not opening." }, -1, Color.Empty, Color.Empty, new Font("Segoe UI", 14F));
-            ListViewItem listViewItem9 = new ListViewItem(new string[] { "Can't connect to network." }, -1, Color.Empty, Color.Empty, new Font("Segoe UI", 14F));
-            ListViewItem listViewItem10 = new ListViewItem(new string[] { "Can't connect to network." }, -1, Color.Empty, Color.Empty, new Font("Segoe UI", 14F));
-            ListViewItem listViewItem11 = new ListViewItem(new string[] { "I see a blue screen, what should I do?" }, -1, Color.Empty, Color.Empty, new Font("Segoe UI", 14F));
-            ListViewItem listViewItem12 = new ListViewItem(new string[] { "The program is not opening." }, -1, Color.Empty, Color.Empty, new Font("Segoe UI", 14F));
-            ListViewItem listViewItem13 = new ListViewItem(new string[] { "Laptop stop working" }, -1, Color.Empty, Color.Empty, new Font("Segoe UI", 14F));
-            ListViewItem listViewItem14 = new ListViewItem(new string[] { "HELP!" }, -1, Color.Empty, Color.Empty, new Font("Segoe UI", 14F));
-            ListViewItem listViewItem15 = new ListViewItem(new string[] { "My computer will not start." }, -1, Color.Empty, SystemColors.Window, new Font("Segoe UI", 14F));
-            ListViewItem listViewItem16 = new ListViewItem(new string[] { "I can't connect to the internet." }, -1, Color.Empty, Color.Empty, new Font("Segoe UI", 14F));
-            ListViewItem listViewItem17 = new ListViewItem(new string[] { "Desktop trouble" }, -1, Color.Empty, Color.Empty, new Font("Segoe UI", 14F));
-            ListViewItem listViewItem18 = new ListViewItem(new string[] { "PC not turning on." }, -1, Color.Empty, Color.Empty, new Font("Segoe UI", 14F));
-            ListViewItem listViewItem19 = new ListViewItem(new string[] { "My computer will not start." }, -1, Color.Empty, SystemColors.Window, new Font("Segoe UI", 14F));
-            ListViewItem listViewItem20 = new ListViewItem(new string[] { "Laptop stop working" }, -1, Color.Empty, Color.Empty, new Font("Segoe UI", 14F));
-            ListViewItem listViewItem21 = new ListViewItem(new string[] { "HELP!" }, -1, Color.Empty, Color.Empty, new Font("Segoe UI", 14F));
-            ListViewItem listViewItem22 = new ListViewItem(new string[] { "I can't connect to the internet." }, -1, Color.Empty, Color.Empty, new Font("Segoe UI", 14F));
-            ListViewItem listViewItem23 = new ListViewItem(new string[] { "The program is not opening." }, -1, Color.Empty, Color.Empty, new Font("Segoe UI", 14F));
-            ListViewItem listViewItem24 = new ListViewItem(new string[] { "Desktop trouble" }, -1, Color.Empty, Color.Empty, new Font("Segoe UI", 14F));
-            ListViewItem listViewItem25 = new ListViewItem(new string[] { "Can't connect to network." }, -1, Color.Empty, Color.Empty, new Font("Segoe UI", 14F));
-            ListViewItem listViewItem26 = new ListViewItem(new string[] { "PC not turning on." }, -1, Color.Empty, Color.Empty, new Font("Segoe UI", 14F));
-            ListViewItem listViewItem27 = new ListViewItem(new string[] { "I see a blue screen, what should I do?" }, -1, Color.Empty, Color.Empty, new Font("Segoe UI", 14F));
             splitContainer1 = new SplitContainer();
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
@@ -63,11 +36,13 @@
             listView2 = new ListView();
             tabPage3 = new TabPage();
             listView3 = new ListView();
+            textBox3 = new TextBox();
+            textBox2 = new TextBox();
             lgOut = new Button();
             button1 = new Button();
             flowLayoutPanel9 = new FlowLayoutPanel();
             label12 = new Label();
-            checkBox1 = new CheckBox();
+            statusBox = new ComboBox();
             flowLayoutPanel8 = new FlowLayoutPanel();
             label11 = new Label();
             textBox10 = new TextBox();
@@ -80,7 +55,7 @@
             label8 = new Label();
             flowLayoutPanel5 = new FlowLayoutPanel();
             label7 = new Label();
-            textBox7 = new TextBox();
+            priorityBox = new ComboBox();
             flowLayoutPanel4 = new FlowLayoutPanel();
             label6 = new Label();
             textBox6 = new TextBox();
@@ -90,9 +65,7 @@
             flowLayoutPanel2 = new FlowLayoutPanel();
             label4 = new Label();
             textBox4 = new TextBox();
-            textBox3 = new TextBox();
             label3 = new Label();
-            textBox2 = new TextBox();
             label2 = new Label();
             flowLayoutPanel1 = new FlowLayoutPanel();
             label1 = new Label();
@@ -129,6 +102,8 @@
             // 
             // splitContainer1.Panel2
             // 
+            splitContainer1.Panel2.Controls.Add(textBox3);
+            splitContainer1.Panel2.Controls.Add(textBox2);
             splitContainer1.Panel2.Controls.Add(lgOut);
             splitContainer1.Panel2.Controls.Add(button1);
             splitContainer1.Panel2.Controls.Add(flowLayoutPanel9);
@@ -140,9 +115,7 @@
             splitContainer1.Panel2.Controls.Add(flowLayoutPanel4);
             splitContainer1.Panel2.Controls.Add(flowLayoutPanel3);
             splitContainer1.Panel2.Controls.Add(flowLayoutPanel2);
-            splitContainer1.Panel2.Controls.Add(textBox3);
             splitContainer1.Panel2.Controls.Add(label3);
-            splitContainer1.Panel2.Controls.Add(textBox2);
             splitContainer1.Panel2.Controls.Add(label2);
             splitContainer1.Panel2.Controls.Add(flowLayoutPanel1);
             splitContainer1.Size = new Size(1024, 583);
@@ -186,16 +159,6 @@
             listView1.Font = new Font("Segoe UI", 14F);
             listView1.FullRowSelect = true;
             listView1.GridLines = true;
-            listView1.HoverSelection = true;
-            listViewItem2.StateImageIndex = 0;
-            listViewItem3.StateImageIndex = 0;
-            listViewItem4.StateImageIndex = 0;
-            listViewItem5.ToolTipText = "Desktop trouble";
-            listViewItem6.StateImageIndex = 0;
-            listViewItem6.ToolTipText = "My computer will not start.";
-            listViewItem8.StateImageIndex = 0;
-            listViewItem8.ToolTipText = "The program is not opening.";
-            listView1.Items.AddRange(new ListViewItem[] { listViewItem1, listViewItem2, listViewItem3, listViewItem4, listViewItem5, listViewItem6, listViewItem7, listViewItem8, listViewItem9 });
             listView1.Location = new Point(2, 1);
             listView1.Margin = new Padding(2);
             listView1.MultiSelect = false;
@@ -207,7 +170,6 @@
             listView1.TileSize = new Size(400, 80);
             listView1.UseCompatibleStateImageBehavior = false;
             listView1.View = View.List;
-            listView1.SelectedIndexChanged += listView1_SelectedIndexChanged;
             // 
             // tabPage2
             // 
@@ -230,16 +192,6 @@
             listView2.Font = new Font("Segoe UI", 14F);
             listView2.FullRowSelect = true;
             listView2.GridLines = true;
-            listView2.HoverSelection = true;
-            listViewItem12.StateImageIndex = 0;
-            listViewItem12.ToolTipText = "The program is not opening.";
-            listViewItem13.StateImageIndex = 0;
-            listViewItem14.StateImageIndex = 0;
-            listViewItem15.StateImageIndex = 0;
-            listViewItem15.ToolTipText = "My computer will not start.";
-            listViewItem16.StateImageIndex = 0;
-            listViewItem17.ToolTipText = "Desktop trouble";
-            listView2.Items.AddRange(new ListViewItem[] { listViewItem10, listViewItem11, listViewItem12, listViewItem13, listViewItem14, listViewItem15, listViewItem16, listViewItem17, listViewItem18 });
             listView2.Location = new Point(2, 1);
             listView2.Margin = new Padding(2);
             listView2.MultiSelect = false;
@@ -251,7 +203,6 @@
             listView2.TileSize = new Size(400, 80);
             listView2.UseCompatibleStateImageBehavior = false;
             listView2.View = View.List;
-            listView2.SelectedIndexChanged += listView2_SelectedIndexChanged;
             // 
             // tabPage3
             // 
@@ -274,16 +225,6 @@
             listView3.Font = new Font("Segoe UI", 14F);
             listView3.FullRowSelect = true;
             listView3.GridLines = true;
-            listView3.HoverSelection = true;
-            listViewItem19.StateImageIndex = 0;
-            listViewItem19.ToolTipText = "My computer will not start.";
-            listViewItem20.StateImageIndex = 0;
-            listViewItem21.StateImageIndex = 0;
-            listViewItem22.StateImageIndex = 0;
-            listViewItem23.StateImageIndex = 0;
-            listViewItem23.ToolTipText = "The program is not opening.";
-            listViewItem24.ToolTipText = "Desktop trouble";
-            listView3.Items.AddRange(new ListViewItem[] { listViewItem19, listViewItem20, listViewItem21, listViewItem22, listViewItem23, listViewItem24, listViewItem25, listViewItem26, listViewItem27 });
             listView3.Location = new Point(2, 1);
             listView3.Margin = new Padding(2);
             listView3.MultiSelect = false;
@@ -295,7 +236,22 @@
             listView3.TileSize = new Size(400, 80);
             listView3.UseCompatibleStateImageBehavior = false;
             listView3.View = View.List;
-            listView3.SelectedIndexChanged += listView3_SelectedIndexChanged;
+            // 
+            // textBox3
+            // 
+            textBox3.Location = new Point(173, 16);
+            textBox3.Name = "textBox3";
+            textBox3.ReadOnly = true;
+            textBox3.Size = new Size(88, 23);
+            textBox3.TabIndex = 17;
+            // 
+            // textBox2
+            // 
+            textBox2.Location = new Point(48, 14);
+            textBox2.Name = "textBox2";
+            textBox2.ReadOnly = true;
+            textBox2.Size = new Size(58, 23);
+            textBox2.TabIndex = 16;
             // 
             // lgOut
             // 
@@ -321,8 +277,8 @@
             // 
             flowLayoutPanel9.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             flowLayoutPanel9.Controls.Add(label12);
-            flowLayoutPanel9.Controls.Add(checkBox1);
-            flowLayoutPanel9.Location = new Point(359, 404);
+            flowLayoutPanel9.Controls.Add(statusBox);
+            flowLayoutPanel9.Location = new Point(361, 401);
             flowLayoutPanel9.Margin = new Padding(2, 5, 8, 1);
             flowLayoutPanel9.Name = "flowLayoutPanel9";
             flowLayoutPanel9.Size = new Size(260, 45);
@@ -336,24 +292,20 @@
             label12.Location = new Point(5, 5);
             label12.Margin = new Padding(5, 5, 2, 0);
             label12.Name = "label12";
-            label12.Size = new Size(45, 20);
+            label12.Size = new Size(45, 15);
             label12.TabIndex = 0;
             label12.Text = "Status: ";
             label12.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // checkBox1
+            // statusBox
             // 
-            checkBox1.AutoSize = true;
-            checkBox1.Checked = true;
-            checkBox1.CheckState = CheckState.Checked;
-            checkBox1.Dock = DockStyle.Fill;
-            checkBox1.Location = new Point(54, 5);
-            checkBox1.Margin = new Padding(2, 5, 2, 1);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(62, 19);
-            checkBox1.TabIndex = 2;
-            checkBox1.Text = "Closed";
-            checkBox1.UseVisualStyleBackColor = true;
+            statusBox.Dock = DockStyle.Fill;
+            statusBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            statusBox.FormattingEnabled = true;
+            statusBox.Location = new Point(55, 3);
+            statusBox.Name = "statusBox";
+            statusBox.Size = new Size(121, 23);
+            statusBox.TabIndex = 1;
             // 
             // flowLayoutPanel8
             // 
@@ -387,7 +339,6 @@
             textBox10.Name = "textBox10";
             textBox10.Size = new Size(166, 23);
             textBox10.TabIndex = 1;
-            textBox10.Text = "Steven A";
             // 
             // flowLayoutPanel7
             // 
@@ -420,7 +371,6 @@
             textBox9.Name = "textBox9";
             textBox9.Size = new Size(170, 79);
             textBox9.TabIndex = 1;
-            textBox9.Text = "Plugged in surge protector";
             // 
             // flowLayoutPanel6
             // 
@@ -453,7 +403,6 @@
             textBox8.Name = "textBox8";
             textBox8.Size = new Size(170, 79);
             textBox8.TabIndex = 1;
-            textBox8.Text = "Surge protector was unpluged.";
             // 
             // label8
             // 
@@ -470,7 +419,7 @@
             // 
             flowLayoutPanel5.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             flowLayoutPanel5.Controls.Add(label7);
-            flowLayoutPanel5.Controls.Add(textBox7);
+            flowLayoutPanel5.Controls.Add(priorityBox);
             flowLayoutPanel5.Location = new Point(269, 202);
             flowLayoutPanel5.Margin = new Padding(2, 5, 8, 1);
             flowLayoutPanel5.Name = "flowLayoutPanel5";
@@ -490,15 +439,16 @@
             label7.Text = "Priority: ";
             label7.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // textBox7
+            // priorityBox
             // 
-            textBox7.Dock = DockStyle.Fill;
-            textBox7.Location = new Point(58, 5);
-            textBox7.Margin = new Padding(0, 5, 2, 1);
-            textBox7.Name = "textBox7";
-            textBox7.Size = new Size(239, 23);
-            textBox7.TabIndex = 1;
-            textBox7.Text = "High";
+            priorityBox.Dock = DockStyle.Fill;
+            priorityBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            priorityBox.DropDownWidth = 123;
+            priorityBox.FormattingEnabled = true;
+            priorityBox.Location = new Point(61, 3);
+            priorityBox.Name = "priorityBox";
+            priorityBox.Size = new Size(121, 23);
+            priorityBox.TabIndex = 2;
             // 
             // flowLayoutPanel4
             // 
@@ -530,9 +480,9 @@
             textBox6.Location = new Point(49, 5);
             textBox6.Margin = new Padding(0, 5, 2, 1);
             textBox6.Name = "textBox6";
+            textBox6.ReadOnly = true;
             textBox6.Size = new Size(248, 23);
             textBox6.TabIndex = 1;
-            textBox6.Text = "Mike Jones";
             // 
             // flowLayoutPanel3
             // 
@@ -564,9 +514,9 @@
             textBox5.Location = new Point(66, 5);
             textBox5.Margin = new Padding(0, 5, 2, 1);
             textBox5.Name = "textBox5";
+            textBox5.ReadOnly = true;
             textBox5.Size = new Size(248, 23);
             textBox5.TabIndex = 1;
-            textBox5.Text = "Sales Dept. Building C, Office 3";
             // 
             // flowLayoutPanel2
             // 
@@ -599,43 +549,26 @@
             textBox4.Name = "textBox4";
             textBox4.Size = new Size(183, 184);
             textBox4.TabIndex = 1;
-            textBox4.Text = "Please help, my computer will not start. I don't know what happen, I tried to turn it on and nothing happened.";
-            // 
-            // textBox3
-            // 
-            textBox3.Location = new Point(171, 12);
-            textBox3.Margin = new Padding(2, 1, 2, 1);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(91, 23);
-            textBox3.TabIndex = 4;
-            textBox3.Text = "06/06/2024";
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(135, 12);
+            label3.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label3.Location = new Point(108, 15);
             label3.Margin = new Padding(2, 0, 2, 0);
             label3.Name = "label3";
-            label3.Size = new Size(37, 15);
+            label3.Size = new Size(71, 21);
             label3.TabIndex = 3;
-            label3.Text = "Date: ";
-            // 
-            // textBox2
-            // 
-            textBox2.Location = new Point(36, 12);
-            textBox2.Margin = new Padding(2, 1, 2, 1);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(91, 23);
-            textBox2.TabIndex = 2;
-            textBox2.Text = "001";
+            label3.Text = "Created: ";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(8, 12);
+            label2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label2.Location = new Point(9, 14);
             label2.Margin = new Padding(2, 0, 2, 0);
             label2.Name = "label2";
-            label2.Size = new Size(28, 15);
+            label2.Size = new Size(38, 21);
             label2.TabIndex = 1;
             label2.Text = "ID #";
             // 
@@ -669,9 +602,9 @@
             textBox1.Location = new Point(59, 5);
             textBox1.Margin = new Padding(0, 5, 2, 1);
             textBox1.Name = "textBox1";
+            textBox1.ReadOnly = true;
             textBox1.Size = new Size(275, 23);
             textBox1.TabIndex = 1;
-            textBox1.Text = "My computer will not start";
             // 
             // TechnicianView
             // 
@@ -723,16 +656,13 @@
         private FlowLayoutPanel flowLayoutPanel1;
         private Label label1;
         private TextBox textBox1;
-        private TextBox textBox2;
         private Label label2;
         private FlowLayoutPanel flowLayoutPanel2;
         private Label label4;
         private TextBox textBox4;
-        private TextBox textBox3;
         private Label label3;
         private FlowLayoutPanel flowLayoutPanel5;
         private Label label7;
-        private TextBox textBox7;
         private FlowLayoutPanel flowLayoutPanel4;
         private Label label6;
         private TextBox textBox6;
@@ -748,7 +678,6 @@
         private TextBox textBox8;
         private FlowLayoutPanel flowLayoutPanel9;
         private Label label12;
-        private CheckBox checkBox1;
         private FlowLayoutPanel flowLayoutPanel8;
         private Label label11;
         private TextBox textBox10;
@@ -756,5 +685,9 @@
         private ListView listView2;
         private Button button1;
         private Button lgOut;
+        private ComboBox statusBox;
+        private ComboBox priorityBox;
+        private TextBox textBox3;
+        private TextBox textBox2;
     }
 }

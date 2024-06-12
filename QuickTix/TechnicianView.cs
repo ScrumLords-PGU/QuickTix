@@ -1,84 +1,121 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Data.SqlClient;
-using QuickTix; 
+using System.Windows.Forms;
 
 namespace QuickTix
 {
     public partial class TechnicianView : Form
     {
-        private string techUsername;
-        private string techPassword;
         private SqlConnection quicktixdbConnection;
 
-        public TechnicianView(string username, string password)
+        public TechnicianView(SqlConnection connection)
         {
+            quicktixdbConnection = connection;
             InitializeComponent();
-            techUsername = username;
-            techPassword = password;
-            InitializeConnections();
+            LoadData();
+            LoadCategories();
+
+            listView1.ItemActivate += new EventHandler(listView1_ItemActivate);
+            listView1.FullRowSelect = true; // Ensure the full row is selectable
         }
-        private void InitializeConnections()
-        {
-            string quicktixdbConnectionString = $"Server=tcp:quicktixsrvr.database.windows.net,1433;Initial Catalog=quicktixdb;Persist Security Info=False;" +
-                $"User ID={techUsername};Password={techPassword};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
-            quicktixdbConnection = new SqlConnection(quicktixdbConnectionString);
-        }
+
         private void LoadData()
         {
+            string query = "SELECT TicketID, Title FROM dbo.Tickets";
             try
             {
-                quicktixdbConnection.Open();
-
                 if (quicktixdbConnection == null)
                 {
                     MessageBox.Show("Database connection is not initialized.");
                     return;
                 }
-                else
+
+                if (quicktixdbConnection.State == ConnectionState.Closed)
                 {
-                    //populate listview1 with tickets
+                    quicktixdbConnection.Open();
                 }
 
+                using (SqlCommand command = new SqlCommand(query, quicktixdbConnection))
+                {
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        // Clear existing items and columns
+                        listView1.Items.Clear();
+                        listView1.Columns.Clear();
 
+                        // Define the single column
+                        listView1.Columns.Add("#", 30);
+                        listView1.Columns.Add("Title", 400);
 
+                        listView1.View = View.Details;
 
+                        while (reader.Read())
+                        {
+                            // Create a new ListViewItem with the TicketID value
+                            ListViewItem item = new ListViewItem(reader["TicketID"].ToString());
+                            // Add the Title as a sub-item
+                            item.SubItems.Add(reader["Title"].ToString());
+
+                            // Add the ListViewItem to the ListView
+                            listView1.Items.Add(item);
+                        }
+                    }
+                }
+
+                quicktixdbConnection.Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("An error occurred: " + ex.Message);
             }
         }
-        private void tchForm_Click(object sender, EventArgs e)
+
+        private void LoadCategories()
         {
-            if (quicktixdbConnection.State == ConnectionState.Closed)
+            string query = "SELECT StatusName FROM dbo.TicketStatus";
+
+            try
             {
-                quicktixdbConnection.Open();
-            }
-            TechnicianForm mainForm = new TechnicianForm(quicktixdbConnection);
-            mainForm.Show();
-            mainForm.FormClosed += (s, args) =>
-            {
-                if (quicktixdbConnection.State == ConnectionState.Open)
+                if (quicktixdbConnection.State == ConnectionState.Closed)
                 {
-                    quicktixdbConnection.Close();
+                    quicktixdbConnection.Open();
                 }
-            };
+
+                using (SqlCommand command = new SqlCommand(query, quicktixdbConnection))
+                {
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        statusBox.Items.Clear();
+
+                        while (reader.Read())
+                        {
+                            statusBox.Items.Add(reader["StatusName"].ToString());
+                        }
+                    }
+                }
+
+                quicktixdbConnection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while loading categories: {ex.Message}");
+            }
         }
+
+        private void listView1_ItemActivate(object sender, EventArgs e)
+        {
+            if (listView1.SelectedItems.Count > 0)
+            {
+                ListViewItem selectedItem = listView1.SelectedItems[0];
+                string ticketID = selectedItem.Text; // TicketID is in the first column
+                string title = selectedItem.SubItems[1].Text; // Title is in the second column
+
+                MessageBox.Show($"TicketID: {ticketID}\nTitle: {title}", "Item Activated");
+            }
+        }
+
         private void TechnicianView_Load(object sender, EventArgs e)
-        {
-
-        }
-        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void listView2_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void listView3_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
@@ -92,7 +129,7 @@ namespace QuickTix
 
             // Show the LoginForm
             Application.Restart();
-            // Close the current form (AdminForm)
+            // Close the current form (TechnicianView)
             this.Close();
         }
     }

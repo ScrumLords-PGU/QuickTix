@@ -1,37 +1,29 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Data.SqlClient;
-using QuickTix;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Windows.Forms;
 
 namespace QuickTix
 {
     public partial class AdminForm : Form
     {
+        private SqlConnection quicktixdbConnection;
+        private SqlConnection masterConnection;
         private string adminUsername;
         private string adminPassword;
-        private SqlConnection masterConnection;
-        private SqlConnection quicktixdbConnection;
 
-        public AdminForm(string username, string password)
+        public AdminForm(SqlConnection quicktixdbConnection, string adminUsername, string adminPassword)
         {
             InitializeComponent();
-            adminUsername = username;
-            adminPassword = password;
+            this.quicktixdbConnection = quicktixdbConnection;
+            this.adminUsername = adminUsername;
+            this.adminPassword = adminPassword;
             InitializeConnections();
             roleAssignment.Items.Add("Customer");
             roleAssignment.Items.Add("Technician");
             roleAssignment.Items.Add("Admin");
             roleAssignment.DropDownStyle = ComboBoxStyle.DropDownList;
             roleAssignment.SelectedIndex = 0;
-
         }
 
         private void InitializeConnections()
@@ -39,11 +31,7 @@ namespace QuickTix
             string masterConnectionString = $"Server=tcp:quicktixsrvr.database.windows.net,1433;Initial Catalog=master;Persist Security Info=False;" +
                 $"User ID={adminUsername};Password={adminPassword};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
-            string quicktixdbConnectionString = $"Server=tcp:quicktixsrvr.database.windows.net,1433;Initial Catalog=quicktixdb;Persist Security Info=False;" +
-                $"User ID={adminUsername};Password={adminPassword};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
-
             masterConnection = new SqlConnection(masterConnectionString);
-            quicktixdbConnection = new SqlConnection(quicktixdbConnectionString);
         }
 
         private void btnCreateUser_Click(object sender, EventArgs e)
@@ -53,13 +41,19 @@ namespace QuickTix
 
             try
             {
-                masterConnection.Open();
+                if (masterConnection.State == ConnectionState.Closed)
+                {
+                    masterConnection.Open();
+                }
                 string createLoginQuery = $"CREATE LOGIN {newUsername} WITH PASSWORD = '{newPassword}';";
                 SqlCommand createLoginCommand = new SqlCommand(createLoginQuery, masterConnection);
                 createLoginCommand.ExecuteNonQuery();
                 masterConnection.Close();
 
-                quicktixdbConnection.Open();
+                if (quicktixdbConnection.State == ConnectionState.Closed)
+                {
+                    quicktixdbConnection.Open();
+                }
                 string createUserQuery = $"CREATE USER {newUsername} FOR LOGIN {newUsername};";
                 SqlCommand createUserCommand = new SqlCommand(createUserQuery, quicktixdbConnection);
                 createUserCommand.ExecuteNonQuery();
@@ -94,7 +88,7 @@ namespace QuickTix
                 quicktixdbConnection.Open();
             }
 
-            TechnicianView mainForm = new TechnicianView(adminUsername, adminPassword);
+            TechnicianView mainForm = new TechnicianView(quicktixdbConnection);
             mainForm.Show();
             mainForm.FormClosed += (s, args) =>
             {
@@ -155,8 +149,6 @@ namespace QuickTix
             Application.Restart();
             // Close the current form (AdminForm)
             this.Close();
-
-
         }
     }
 }

@@ -73,12 +73,6 @@ namespace QuickTix
                         mainForm = new CustomerForm(connection);
                         mainForm.ShowDialog();
                     }
-
-                    if (mainForm != null)
-                    {
-                        mainForm.FormClosed += (s, args) => this.Show();
-                        mainForm.Show();
-                    }
                 }
                 else
                 {

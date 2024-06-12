@@ -10,7 +10,7 @@ namespace QuickTix
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            LoginForm loginForm = new LoginForm();
+            LoginForm loginForm = new();
             Application.Run(loginForm);
 
         }

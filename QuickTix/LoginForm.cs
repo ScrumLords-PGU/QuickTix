@@ -1,7 +1,19 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.Windows.Forms;
+/*
+AliceSmith password123! Technician
+BobJohnson password123! Technician
+CharlieBrown password123! Technician
+DianaPrince password123! Technician
+EvanWright password123! Technician
+FrankMiller password123! Customer
+GraceHopper password123! Customer
+HenryFord password123! Customer
+IreneCurie password123! Customer
+JackLondon password123! Customer
 
+ */
 namespace QuickTix
 {
     public partial class LoginForm : Form

@@ -15,15 +15,18 @@ namespace QuickTix
             InitializeComponent();
             LoadData();
             LoadCategories();
+            LoadPriorities();
 
             this.Load += new EventHandler(TechnicianView_Load); // Ensure the Load event is hooked
             listView1.ItemActivate += new EventHandler(listView1_ItemActivate);
             listView1.FullRowSelect = true; // Ensure the full row is selectable
         }
+
         private void TechnicianView_Load(object sender, EventArgs e)
         {
             PopulateTechnicianComboBox();
         }
+
         private void LoadData()
         {
             string query = "SELECT TicketID, Title FROM dbo.Tickets";
@@ -74,6 +77,7 @@ namespace QuickTix
                 MessageBox.Show("An error occurred: " + ex.Message);
             }
         }
+
         private List<string> GetTechnicianUsers()
         {
             List<string> technicians = new List<string>();
@@ -126,6 +130,7 @@ namespace QuickTix
                 MessageBox.Show($"{technicians.Count} technicians loaded.");
             }
         }
+
         private void LoadCategories()
         {
             string query = "SELECT StatusName FROM dbo.TicketStatus";
@@ -155,6 +160,38 @@ namespace QuickTix
             catch (Exception ex)
             {
                 MessageBox.Show($"An error occurred while loading categories: {ex.Message}");
+            }
+        }
+
+        private void LoadPriorities()
+        {
+            string query = "SELECT PriorityName FROM dbo.Priority";
+
+            try
+            {
+                if (quicktixdbConnection.State == ConnectionState.Closed)
+                {
+                    quicktixdbConnection.Open();
+                }
+
+                using (SqlCommand command = new SqlCommand(query, quicktixdbConnection))
+                {
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        priorityBox.Items.Clear();
+
+                        while (reader.Read())
+                        {
+                            priorityBox.Items.Add(reader["PriorityName"].ToString());
+                        }
+                    }
+                }
+
+                quicktixdbConnection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while loading priorities: {ex.Message}");
             }
         }
 
@@ -204,7 +241,7 @@ namespace QuickTix
             }
         }
 
-      /* private void btnUpdateAssignedTo_Click(object sender, EventArgs e)
+        /* private void btnUpdateAssignedTo_Click(object sender, EventArgs e)
         {
             string toUserName = bxAssigned.Text; // The new user
             string ticketIdText = txtID.Text; // The Ticket ID from a TextBox
@@ -218,7 +255,7 @@ namespace QuickTix
                 MessageBox.Show("Please enter a valid Ticket ID.");
             }
         }
-      */
+        */
 
         private void lgOut_Click(object sender, EventArgs e)
         {

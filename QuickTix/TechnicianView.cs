@@ -16,10 +16,14 @@ namespace QuickTix
             LoadData();
             LoadCategories();
 
+            this.Load += new EventHandler(TechnicianView_Load); // Ensure the Load event is hooked
             listView1.ItemActivate += new EventHandler(listView1_ItemActivate);
             listView1.FullRowSelect = true; // Ensure the full row is selectable
         }
-
+        private void TechnicianView_Load(object sender, EventArgs e)
+        {
+            PopulateTechnicianComboBox();
+        }
         private void LoadData()
         {
             string query = "SELECT TicketID, Title FROM dbo.Tickets";
@@ -70,7 +74,58 @@ namespace QuickTix
                 MessageBox.Show("An error occurred: " + ex.Message);
             }
         }
+        private List<string> GetTechnicianUsers()
+        {
+            List<string> technicians = new List<string>();
+            string query = "SELECT UserName FROM dbo.Users WHERE Role = 'Technician'";
 
+            try
+            {
+                if (quicktixdbConnection.State == ConnectionState.Closed)
+                {
+                    quicktixdbConnection.Open();
+                }
+
+                using (SqlCommand command = new SqlCommand(query, quicktixdbConnection))
+                {
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            technicians.Add(reader["UserName"].ToString());
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while fetching technicians: {ex.Message}");
+            }
+            finally
+            {
+                if (quicktixdbConnection.State == ConnectionState.Open)
+                {
+                    quicktixdbConnection.Close();
+                }
+            }
+
+            return technicians;
+        }
+
+        private void PopulateTechnicianComboBox()
+        {
+            List<string> technicians = GetTechnicianUsers();
+            bxAssigned.DataSource = technicians;
+
+            if (technicians.Count == 0)
+            {
+                MessageBox.Show("No technicians found.");
+            }
+            else
+            {
+                MessageBox.Show($"{technicians.Count} technicians loaded.");
+            }
+        }
         private void LoadCategories()
         {
             string query = "SELECT StatusName FROM dbo.TicketStatus";
@@ -115,10 +170,55 @@ namespace QuickTix
             }
         }
 
-        private void TechnicianView_Load(object sender, EventArgs e)
+        private void UpdateAssignedTo(string toUserName, int ticketId)
         {
+            string storedProcedureName = "UpdateAssignedTo";
 
+            try
+            {
+                if (quicktixdbConnection.State == ConnectionState.Closed)
+                {
+                    quicktixdbConnection.Open();
+                }
+
+                using (SqlCommand command = new SqlCommand(storedProcedureName, quicktixdbConnection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@ToUserName", toUserName);
+                    command.Parameters.AddWithValue("@TicketID", ticketId);
+
+                    int rowsAffected = command.ExecuteNonQuery();
+                    MessageBox.Show($"{rowsAffected} row updated successfully.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while updating the ticket: {ex.Message}");
+            }
+            finally
+            {
+                if (quicktixdbConnection.State == ConnectionState.Open)
+                {
+                    quicktixdbConnection.Close();
+                }
+            }
         }
+
+      /* private void btnUpdateAssignedTo_Click(object sender, EventArgs e)
+        {
+            string toUserName = bxAssigned.Text; // The new user
+            string ticketIdText = txtID.Text; // The Ticket ID from a TextBox
+
+            if (int.TryParse(ticketIdText, out int ticketId))
+            {
+                UpdateAssignedTo(toUserName, ticketId);
+            }
+            else
+            {
+                MessageBox.Show("Please enter a valid Ticket ID.");
+            }
+        }
+      */
 
         private void lgOut_Click(object sender, EventArgs e)
         {

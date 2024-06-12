@@ -37,7 +37,7 @@
             tabPage3 = new TabPage();
             listView3 = new ListView();
             textBox3 = new TextBox();
-            textBox2 = new TextBox();
+            txtID = new TextBox();
             lgOut = new Button();
             button1 = new Button();
             flowLayoutPanel9 = new FlowLayoutPanel();
@@ -45,7 +45,7 @@
             statusBox = new ComboBox();
             flowLayoutPanel8 = new FlowLayoutPanel();
             label11 = new Label();
-            textBox10 = new TextBox();
+            bxAssigned = new ComboBox();
             flowLayoutPanel7 = new FlowLayoutPanel();
             label10 = new Label();
             textBox9 = new TextBox();
@@ -103,7 +103,7 @@
             // splitContainer1.Panel2
             // 
             splitContainer1.Panel2.Controls.Add(textBox3);
-            splitContainer1.Panel2.Controls.Add(textBox2);
+            splitContainer1.Panel2.Controls.Add(txtID);
             splitContainer1.Panel2.Controls.Add(lgOut);
             splitContainer1.Panel2.Controls.Add(button1);
             splitContainer1.Panel2.Controls.Add(flowLayoutPanel9);
@@ -245,13 +245,13 @@
             textBox3.Size = new Size(88, 23);
             textBox3.TabIndex = 17;
             // 
-            // textBox2
+            // txtID
             // 
-            textBox2.Location = new Point(48, 14);
-            textBox2.Name = "textBox2";
-            textBox2.ReadOnly = true;
-            textBox2.Size = new Size(58, 23);
-            textBox2.TabIndex = 16;
+            txtID.Location = new Point(48, 14);
+            txtID.Name = "txtID";
+            txtID.ReadOnly = true;
+            txtID.Size = new Size(58, 23);
+            txtID.TabIndex = 16;
             // 
             // lgOut
             // 
@@ -311,7 +311,7 @@
             // 
             flowLayoutPanel8.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             flowLayoutPanel8.Controls.Add(label11);
-            flowLayoutPanel8.Controls.Add(textBox10);
+            flowLayoutPanel8.Controls.Add(bxAssigned);
             flowLayoutPanel8.Location = new Point(8, 404);
             flowLayoutPanel8.Margin = new Padding(2, 5, 8, 1);
             flowLayoutPanel8.Name = "flowLayoutPanel8";
@@ -331,14 +331,15 @@
             label11.Text = "Assigned to: ";
             label11.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // textBox10
+            // bxAssigned
             // 
-            textBox10.Dock = DockStyle.Fill;
-            textBox10.Location = new Point(82, 5);
-            textBox10.Margin = new Padding(0, 5, 2, 1);
-            textBox10.Name = "textBox10";
-            textBox10.Size = new Size(166, 23);
-            textBox10.TabIndex = 1;
+            bxAssigned.Dock = DockStyle.Fill;
+            bxAssigned.DropDownStyle = ComboBoxStyle.DropDownList;
+            bxAssigned.FormattingEnabled = true;
+            bxAssigned.Location = new Point(85, 3);
+            bxAssigned.Name = "bxAssigned";
+            bxAssigned.Size = new Size(121, 23);
+            bxAssigned.TabIndex = 18;
             // 
             // flowLayoutPanel7
             // 
@@ -680,7 +681,6 @@
         private Label label12;
         private FlowLayoutPanel flowLayoutPanel8;
         private Label label11;
-        private TextBox textBox10;
         private ListView listView1;
         private ListView listView2;
         private Button button1;
@@ -688,6 +688,7 @@
         private ComboBox statusBox;
         private ComboBox priorityBox;
         private TextBox textBox3;
-        private TextBox textBox2;
+        private TextBox txtID;
+        private ComboBox bxAssigned;
     }
 }

@@ -429,39 +429,39 @@ namespace QuickTix
 
 
 
-            private void UpdateAssignedTo(string toUserName, int ticketId)
+        private void UpdateAssignedTo(string toUserName, int ticketId)
+        {
+            string storedProcedureName = "UpdateAssignedTo";
+
+            try
             {
-                string storedProcedureName = "UpdateAssignedTo";
-
-                try
+                if (quicktixdbConnection.State == ConnectionState.Closed)
                 {
-                    if (quicktixdbConnection.State == ConnectionState.Closed)
-                    {
-                        quicktixdbConnection.Open();
-                    }
-
-                    using (SqlCommand command = new SqlCommand(storedProcedureName, quicktixdbConnection))
-                    {
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@ToUserName", toUserName);
-                        command.Parameters.AddWithValue("@TicketID", ticketId);
-
-                        int rowsAffected = command.ExecuteNonQuery();
-                        MessageBox.Show($"{rowsAffected} row updated successfully.");
-                    }
+                    quicktixdbConnection.Open();
                 }
-                catch (Exception ex)
+
+                using (SqlCommand command = new SqlCommand(storedProcedureName, quicktixdbConnection))
                 {
-                    MessageBox.Show($"An error occurred while updating the ticket: {ex.Message}");
-                }
-                finally
-                {
-                    if (quicktixdbConnection.State == ConnectionState.Open)
-                    {
-                        quicktixdbConnection.Close();
-                    }
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@ToUserName", toUserName);
+                    command.Parameters.AddWithValue("@TicketID", ticketId);
+
+                    int rowsAffected = command.ExecuteNonQuery();
+                    MessageBox.Show($"{rowsAffected} row updated successfully.");
                 }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while updating the ticket: {ex.Message}");
+            }
+            finally
+            {
+                if (quicktixdbConnection.State == ConnectionState.Open)
+                {
+                    quicktixdbConnection.Close();
+                }
+            }
+        }
         /*
 
              private void btnUpdateAssignedTo_Click(object sender, EventArgs e)
@@ -498,6 +498,9 @@ namespace QuickTix
 
         }
 
+        private void lblPriority_Click(object sender, EventArgs e)
+        {
 
+        }
     }
 }

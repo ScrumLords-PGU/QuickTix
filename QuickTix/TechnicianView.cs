@@ -21,7 +21,7 @@ namespace QuickTix
             LoadCatagories();
 
             this.Load += new EventHandler(TechnicianView_Load); // Ensure the Load event is hooked
-            listView1.ItemActivate += new EventHandler(listView1_ItemActivate);
+            listOpen.ItemActivate += new EventHandler(listView1_ItemActivate);
         }
 
         private void TechnicianView_Load(object sender, EventArgs e)
@@ -50,14 +50,14 @@ namespace QuickTix
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
                         // Clear existing items and columns
-                        listView1.Items.Clear();
-                        listView1.Columns.Clear();
+                        listOpen.Items.Clear();
+                        listOpen.Columns.Clear();
 
                         // Define the single column
-                        listView1.Columns.Add("Ticket #", 80);
-                        listView1.Columns.Add("Title", 500);
+                        listOpen.Columns.Add("Ticket #", 80);
+                        listOpen.Columns.Add("Title", 500);
 
-                        listView1.View = View.Details;
+                        listOpen.View = View.Details;
 
                         while (reader.Read())
                         {
@@ -67,7 +67,7 @@ namespace QuickTix
                             item.SubItems.Add(reader["Title"].ToString());
 
                             // Add the ListViewItem to the ListView
-                            listView1.Items.Add(item);
+                            listOpen.Items.Add(item);
                         }
                     }
                 }
@@ -83,6 +83,7 @@ namespace QuickTix
         private List<string> GetTechnicianUsers()
         {
             List<string> technicians = new List<string>();
+            technicians.Add(""); // Add an option for unassigned tickets
             string query = "SELECT UserName FROM dbo.Users WHERE Role = 'Technician'";
 
             try
@@ -227,9 +228,9 @@ namespace QuickTix
 
         private void listView1_ItemActivate(object sender, EventArgs e)
         {
-            if (listView1.SelectedItems.Count > 0)
+            if (listOpen.SelectedItems.Count > 0)
             {
-                ListViewItem selectedItem = listView1.SelectedItems[0];
+                ListViewItem selectedItem = listOpen.SelectedItems[0];
                 string ticketID = selectedItem.Text; // TicketID is in the first column
 
                 PopulateTicketDetails(int.Parse(ticketID));
@@ -329,10 +330,14 @@ namespace QuickTix
                 }
 
                 // Retrieve the IDs based on the selected names
-                int stateID = GetIDFromName("dbo.TicketStatus", "StatusName", bxState.SelectedItem.ToString(), "StatusID");
-                int priorityID = GetIDFromName("dbo.Priority", "PriorityName", bxPriority.SelectedItem.ToString(), "PriorityID");
-                int categoryID = GetIDFromName("dbo.TicketCategories", "CategoryName", bxCategory.SelectedItem.ToString(), "CategoryID");
-                int assignedToID = GetIDFromName("dbo.Users", "UserName", bxAssigned.SelectedItem.ToString(), "UserID");
+                int? stateID = GetIDFromName("dbo.TicketStatus", "StatusName", bxState.SelectedItem.ToString(), "StatusID");
+                int? priorityID = GetIDFromName("dbo.Priority", "PriorityName", bxPriority.SelectedItem.ToString(), "PriorityID");
+                int? categoryID = GetIDFromName("dbo.TicketCategories", "CategoryName", bxCategory.SelectedItem.ToString(), "CategoryID");
+                int? assignedToID = null;
+                if (!string.IsNullOrEmpty(bxAssigned.SelectedItem?.ToString()))
+                {
+                    assignedToID = GetIDFromName("dbo.Users", "UserName", bxAssigned.SelectedItem.ToString(), "UserID");
+                }
 
                 using (SqlCommand command = new SqlCommand(storedProcedureName, quicktixdbConnection))
                 {
@@ -345,7 +350,7 @@ namespace QuickTix
                     command.Parameters.AddWithValue("@StateID", stateID);
                     command.Parameters.AddWithValue("@PriorityID", priorityID);
                     command.Parameters.AddWithValue("@CategoryID", categoryID);
-                    command.Parameters.AddWithValue("@AssignedTo", assignedToID);
+                    command.Parameters.AddWithValue("@AssignedTo", (object)assignedToID ?? DBNull.Value);
                     command.Parameters.AddWithValue("@UpdatedAt", DateTime.Now);
                     command.Parameters.AddWithValue("@CommentText", txtComment.Text);
                     command.Parameters.AddWithValue("@UserID", currentUserID);
@@ -366,12 +371,13 @@ namespace QuickTix
                 }
             }
 
-            // Optionally, refresh the data on the form
+            // Refresh the data on the form
             LoadData();
             PopulateTicketDetails(int.Parse(txtID.Text));
         }
 
-        private int GetIDFromName(string tableName, string nameColumn, string nameValue, string idColumn)
+
+        private int? GetIDFromName(string tableName, string nameColumn, string nameValue, string idColumn)
         {
             try
             {
@@ -379,15 +385,24 @@ namespace QuickTix
                 using (SqlCommand command = new SqlCommand(query, quicktixdbConnection))
                 {
                     command.Parameters.AddWithValue("@nameValue", nameValue);
-                    return (int)command.ExecuteScalar();
+                    object result = command.ExecuteScalar();
+                    if (result != null)
+                    {
+                        return (int)result;
+                    }
+                    else
+                    {
+                        return null;
+                    }
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"An error occurred while fetching the ID: {ex.Message}");
-                return -1;
+                return null;
             }
         }
+
 
         private int GetCurrentUserID()
         {

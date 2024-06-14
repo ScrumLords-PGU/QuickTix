@@ -29,13 +29,14 @@
         private void InitializeComponent()
         {
             splitContainer1 = new SplitContainer();
-            tabControl1 = new TabControl();
-            tabPage1 = new TabPage();
-            listView1 = new ListView();
-            tabPage2 = new TabPage();
-            listView2 = new ListView();
-            tabPage3 = new TabPage();
-            listView3 = new ListView();
+            tabControl = new TabControl();
+            tabOpen = new TabPage();
+            listOpen = new ListView();
+            tabAssigned = new TabPage();
+            listAssigned = new ListView();
+            tabClosed = new TabPage();
+            listClosed = new ListView();
+            tabResolved = new TabPage();
             lblComment = new Label();
             lblDescription = new Label();
             txtComment = new TextBox();
@@ -73,10 +74,10 @@
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
             splitContainer1.SuspendLayout();
-            tabControl1.SuspendLayout();
-            tabPage1.SuspendLayout();
-            tabPage2.SuspendLayout();
-            tabPage3.SuspendLayout();
+            tabControl.SuspendLayout();
+            tabOpen.SuspendLayout();
+            tabAssigned.SuspendLayout();
+            tabClosed.SuspendLayout();
             flowLayoutPanelComments.SuspendLayout();
             SuspendLayout();
             // 
@@ -89,7 +90,7 @@
             // 
             // splitContainer1.Panel1
             // 
-            splitContainer1.Panel1.Controls.Add(tabControl1);
+            splitContainer1.Panel1.Controls.Add(tabControl);
             // 
             // splitContainer1.Panel2
             // 
@@ -131,119 +132,129 @@
             splitContainer1.SplitterWidth = 2;
             splitContainer1.TabIndex = 0;
             // 
-            // tabControl1
+            // tabControl
             // 
-            tabControl1.Controls.Add(tabPage1);
-            tabControl1.Controls.Add(tabPage2);
-            tabControl1.Controls.Add(tabPage3);
-            tabControl1.Dock = DockStyle.Fill;
-            tabControl1.ImeMode = ImeMode.Off;
-            tabControl1.Location = new Point(0, 0);
-            tabControl1.Margin = new Padding(2, 1, 2, 1);
-            tabControl1.Name = "tabControl1";
-            tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(340, 861);
-            tabControl1.TabIndex = 0;
+            tabControl.Controls.Add(tabOpen);
+            tabControl.Controls.Add(tabAssigned);
+            tabControl.Controls.Add(tabClosed);
+            tabControl.Controls.Add(tabResolved);
+            tabControl.Dock = DockStyle.Fill;
+            tabControl.ImeMode = ImeMode.Off;
+            tabControl.Location = new Point(0, 0);
+            tabControl.Margin = new Padding(2, 1, 2, 1);
+            tabControl.Name = "tabControl";
+            tabControl.SelectedIndex = 0;
+            tabControl.Size = new Size(340, 861);
+            tabControl.TabIndex = 0;
             // 
-            // tabPage1
+            // tabOpen
             // 
-            tabPage1.Controls.Add(listView1);
-            tabPage1.Font = new Font("Segoe UI", 10F);
-            tabPage1.Location = new Point(4, 24);
-            tabPage1.Margin = new Padding(2, 1, 2, 1);
-            tabPage1.Name = "tabPage1";
-            tabPage1.Padding = new Padding(2, 1, 2, 1);
-            tabPage1.Size = new Size(332, 833);
-            tabPage1.TabIndex = 0;
-            tabPage1.Text = "Assigned";
-            tabPage1.UseVisualStyleBackColor = true;
+            tabOpen.Controls.Add(listOpen);
+            tabOpen.Font = new Font("Segoe UI", 10F);
+            tabOpen.Location = new Point(4, 24);
+            tabOpen.Margin = new Padding(2, 1, 2, 1);
+            tabOpen.Name = "tabOpen";
+            tabOpen.Padding = new Padding(2, 1, 2, 1);
+            tabOpen.Size = new Size(332, 833);
+            tabOpen.TabIndex = 0;
+            tabOpen.Text = "Open";
+            tabOpen.UseVisualStyleBackColor = true;
             // 
-            // listView1
+            // listOpen
             // 
-            listView1.Activation = ItemActivation.OneClick;
-            listView1.BorderStyle = BorderStyle.FixedSingle;
-            listView1.Cursor = Cursors.Hand;
-            listView1.Dock = DockStyle.Fill;
-            listView1.Font = new Font("Segoe UI", 14F);
-            listView1.FullRowSelect = true;
-            listView1.GridLines = true;
-            listView1.Location = new Point(2, 1);
-            listView1.Margin = new Padding(2);
-            listView1.MultiSelect = false;
-            listView1.Name = "listView1";
-            listView1.RightToLeft = RightToLeft.No;
-            listView1.ShowItemToolTips = true;
-            listView1.Size = new Size(328, 831);
-            listView1.TabIndex = 1;
-            listView1.TileSize = new Size(400, 80);
-            listView1.UseCompatibleStateImageBehavior = false;
-            listView1.View = View.List;
+            listOpen.Activation = ItemActivation.OneClick;
+            listOpen.BorderStyle = BorderStyle.FixedSingle;
+            listOpen.Cursor = Cursors.Hand;
+            listOpen.Dock = DockStyle.Fill;
+            listOpen.Font = new Font("Segoe UI", 14F);
+            listOpen.FullRowSelect = true;
+            listOpen.GridLines = true;
+            listOpen.Location = new Point(2, 1);
+            listOpen.Margin = new Padding(2);
+            listOpen.MultiSelect = false;
+            listOpen.Name = "listOpen";
+            listOpen.RightToLeft = RightToLeft.No;
+            listOpen.ShowItemToolTips = true;
+            listOpen.Size = new Size(328, 831);
+            listOpen.TabIndex = 1;
+            listOpen.TileSize = new Size(400, 80);
+            listOpen.UseCompatibleStateImageBehavior = false;
+            listOpen.View = View.List;
             // 
-            // tabPage2
+            // tabAssigned
             // 
-            tabPage2.Controls.Add(listView2);
-            tabPage2.Location = new Point(4, 24);
-            tabPage2.Margin = new Padding(2, 1, 2, 1);
-            tabPage2.Name = "tabPage2";
-            tabPage2.Padding = new Padding(2, 1, 2, 1);
-            tabPage2.Size = new Size(332, 833);
-            tabPage2.TabIndex = 1;
-            tabPage2.Text = "Open ";
-            tabPage2.UseVisualStyleBackColor = true;
+            tabAssigned.Controls.Add(listAssigned);
+            tabAssigned.Location = new Point(4, 24);
+            tabAssigned.Margin = new Padding(2, 1, 2, 1);
+            tabAssigned.Name = "tabAssigned";
+            tabAssigned.Padding = new Padding(2, 1, 2, 1);
+            tabAssigned.Size = new Size(332, 833);
+            tabAssigned.TabIndex = 1;
+            tabAssigned.Text = "Assigned";
+            tabAssigned.UseVisualStyleBackColor = true;
             // 
-            // listView2
+            // listAssigned
             // 
-            listView2.Activation = ItemActivation.OneClick;
-            listView2.BorderStyle = BorderStyle.FixedSingle;
-            listView2.Cursor = Cursors.Hand;
-            listView2.Dock = DockStyle.Fill;
-            listView2.Font = new Font("Segoe UI", 14F);
-            listView2.FullRowSelect = true;
-            listView2.GridLines = true;
-            listView2.Location = new Point(2, 1);
-            listView2.Margin = new Padding(2);
-            listView2.MultiSelect = false;
-            listView2.Name = "listView2";
-            listView2.RightToLeft = RightToLeft.No;
-            listView2.ShowItemToolTips = true;
-            listView2.Size = new Size(328, 831);
-            listView2.TabIndex = 1;
-            listView2.TileSize = new Size(400, 80);
-            listView2.UseCompatibleStateImageBehavior = false;
-            listView2.View = View.List;
+            listAssigned.Activation = ItemActivation.OneClick;
+            listAssigned.BorderStyle = BorderStyle.FixedSingle;
+            listAssigned.Cursor = Cursors.Hand;
+            listAssigned.Dock = DockStyle.Fill;
+            listAssigned.Font = new Font("Segoe UI", 14F);
+            listAssigned.FullRowSelect = true;
+            listAssigned.GridLines = true;
+            listAssigned.Location = new Point(2, 1);
+            listAssigned.Margin = new Padding(2);
+            listAssigned.MultiSelect = false;
+            listAssigned.Name = "listAssigned";
+            listAssigned.RightToLeft = RightToLeft.No;
+            listAssigned.ShowItemToolTips = true;
+            listAssigned.Size = new Size(328, 831);
+            listAssigned.TabIndex = 1;
+            listAssigned.TileSize = new Size(400, 80);
+            listAssigned.UseCompatibleStateImageBehavior = false;
+            listAssigned.View = View.List;
             // 
-            // tabPage3
+            // tabClosed
             // 
-            tabPage3.Controls.Add(listView3);
-            tabPage3.Location = new Point(4, 24);
-            tabPage3.Margin = new Padding(2, 1, 2, 1);
-            tabPage3.Name = "tabPage3";
-            tabPage3.Padding = new Padding(2, 1, 2, 1);
-            tabPage3.Size = new Size(332, 833);
-            tabPage3.TabIndex = 2;
-            tabPage3.Text = "Closed";
-            tabPage3.UseVisualStyleBackColor = true;
+            tabClosed.Controls.Add(listClosed);
+            tabClosed.Location = new Point(4, 24);
+            tabClosed.Margin = new Padding(2, 1, 2, 1);
+            tabClosed.Name = "tabClosed";
+            tabClosed.Padding = new Padding(2, 1, 2, 1);
+            tabClosed.Size = new Size(332, 833);
+            tabClosed.TabIndex = 2;
+            tabClosed.Text = "Closed";
+            tabClosed.UseVisualStyleBackColor = true;
             // 
-            // listView3
+            // listClosed
             // 
-            listView3.Activation = ItemActivation.OneClick;
-            listView3.BorderStyle = BorderStyle.FixedSingle;
-            listView3.Cursor = Cursors.Hand;
-            listView3.Dock = DockStyle.Fill;
-            listView3.Font = new Font("Segoe UI", 14F);
-            listView3.FullRowSelect = true;
-            listView3.GridLines = true;
-            listView3.Location = new Point(2, 1);
-            listView3.Margin = new Padding(2);
-            listView3.MultiSelect = false;
-            listView3.Name = "listView3";
-            listView3.RightToLeft = RightToLeft.No;
-            listView3.ShowItemToolTips = true;
-            listView3.Size = new Size(328, 831);
-            listView3.TabIndex = 0;
-            listView3.TileSize = new Size(400, 80);
-            listView3.UseCompatibleStateImageBehavior = false;
-            listView3.View = View.List;
+            listClosed.Activation = ItemActivation.OneClick;
+            listClosed.BorderStyle = BorderStyle.FixedSingle;
+            listClosed.Cursor = Cursors.Hand;
+            listClosed.Dock = DockStyle.Fill;
+            listClosed.Font = new Font("Segoe UI", 14F);
+            listClosed.FullRowSelect = true;
+            listClosed.GridLines = true;
+            listClosed.Location = new Point(2, 1);
+            listClosed.Margin = new Padding(2);
+            listClosed.MultiSelect = false;
+            listClosed.Name = "listClosed";
+            listClosed.RightToLeft = RightToLeft.No;
+            listClosed.ShowItemToolTips = true;
+            listClosed.Size = new Size(328, 831);
+            listClosed.TabIndex = 0;
+            listClosed.TileSize = new Size(400, 80);
+            listClosed.UseCompatibleStateImageBehavior = false;
+            listClosed.View = View.List;
+            // 
+            // tabResolved
+            // 
+            tabResolved.Location = new Point(4, 24);
+            tabResolved.Name = "tabResolved";
+            tabResolved.Size = new Size(332, 833);
+            tabResolved.TabIndex = 3;
+            tabResolved.Text = "Resolved";
+            tabResolved.UseVisualStyleBackColor = true;
             // 
             // lblComment
             // 
@@ -605,10 +616,10 @@
             splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
             splitContainer1.ResumeLayout(false);
-            tabControl1.ResumeLayout(false);
-            tabPage1.ResumeLayout(false);
-            tabPage2.ResumeLayout(false);
-            tabPage3.ResumeLayout(false);
+            tabControl.ResumeLayout(false);
+            tabOpen.ResumeLayout(false);
+            tabAssigned.ResumeLayout(false);
+            tabClosed.ResumeLayout(false);
             flowLayoutPanelComments.ResumeLayout(false);
             flowLayoutPanelComments.PerformLayout();
             ResumeLayout(false);
@@ -617,16 +628,16 @@
         #endregion
 
         private SplitContainer splitContainer1;
-        private TabControl tabControl1;
-        private TabPage tabPage1;
-        private TabPage tabPage2;
-        private TabPage tabPage3;
-        private ListView listView3;
+        private TabControl tabControl;
+        private TabPage tabOpen;
+        private TabPage tabAssigned;
+        private TabPage tabClosed;
+        private ListView listClosed;
         private Label label2;
         private TextBox txtDescription;
         private Label label3;
-        private ListView listView1;
-        private ListView listView2;
+        private ListView listOpen;
+        private ListView listAssigned;
         private Button btnUpdate;
         private Button lgOut;
         private ComboBox bxState;
@@ -657,5 +668,6 @@
         private Label lblComment;
         private Label lblDescription;
         private TextBox txtComment;
+        private TabPage tabResolved;
     }
 }

@@ -498,9 +498,5 @@ namespace QuickTix
 
         }
 
-        private void lblPriority_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

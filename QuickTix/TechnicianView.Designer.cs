@@ -346,7 +346,6 @@
             lblPriority.Size = new Size(61, 21);
             lblPriority.TabIndex = 40;
             lblPriority.Text = "Priority";
-            lblPriority.Click += lblPriority_Click;
             // 
             // lblCategory
             // 

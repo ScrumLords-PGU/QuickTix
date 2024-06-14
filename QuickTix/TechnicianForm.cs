@@ -24,6 +24,7 @@ namespace QuickTix
             this.connection = sqlConnection;
             LoadData();
         }
+
         private void LoadData()
         {
             try
@@ -39,11 +40,17 @@ namespace QuickTix
                     connection.Open();
                 }
 
-                SqlDataAdapter dataAdapter = new SqlDataAdapter("SELECT * FROM dbo.Tickets", connection);
-                DataTable dataTable = new DataTable();
-                dataAdapter.Fill(dataTable);
-                this.bindingSource.DataSource = dataTable;
-                this.dataGridView1.DataSource = this.bindingSource;
+                using (SqlCommand command = new SqlCommand("GetTicketDetails", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+
+                    SqlDataAdapter dataAdapter = new SqlDataAdapter(command);
+                    DataTable dataTable = new DataTable();
+                    dataAdapter.Fill(dataTable);
+                    this.bindingSource.DataSource = dataTable;
+                    this.dataGridView1.DataSource = this.bindingSource;
+                }
             }
             catch (Exception ex)
             {
@@ -57,7 +64,7 @@ namespace QuickTix
             dataGridView1.Dock = DockStyle.Fill;
 
             // Automatically resize column widths to fit the text content
-            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
             // Exclude the "Description" column from being automatically resized
             dataGridView1.Columns["Description"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
@@ -73,34 +80,21 @@ namespace QuickTix
                 column.ReadOnly = true;
             }
 
-            // Replace the TicketID column with a DataGridViewLinkColumn
-            DataGridViewLinkColumn ticketIDLinkColumn = new DataGridViewLinkColumn
-            {
-                Name = "TicketID",
-                HeaderText = "TicketID",
-                DataPropertyName = "TicketID",
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
-                LinkBehavior = LinkBehavior.HoverUnderline,
-                ReadOnly = false, // Make the TicketID column clickable
-                SortMode = DataGridViewColumnSortMode.Automatic // Make the column sortable
-            };
-            dataGridView1.Columns.Remove("TicketID");
-            dataGridView1.Columns.Insert(0, ticketIDLinkColumn);
-
-            // Handle the CellContentClick event
-            dataGridView1.CellContentClick += DataGridView1_CellContentClick;
+            // Handle the CellClick event
+            dataGridView1.CellClick += DataGridView1_CellClick;
         }
 
-        private void DataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            // Ensure the user clicked on a link cell
-            if (dataGridView1.Columns[e.ColumnIndex] is DataGridViewLinkColumn && e.RowIndex >= 0)
+            // Ensure the user clicked on a cell and it's not a header
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
             {
-                // Try to parse the cell value as an integer
-                if (int.TryParse(dataGridView1[e.ColumnIndex, e.RowIndex].Value.ToString(), out int ticketID))
+                // Try to parse the TicketID cell value as an integer
+                DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
+                if (int.TryParse(row.Cells["TicketID"].Value.ToString(), out int ticketID))
                 {
-                    MessageBox.Show($"TicketID link clicked: {ticketID}");
-                    // Add your event handling code here for the TicketID link
+                    MessageBox.Show($"TicketID row clicked: {ticketID}");
+                    // Add your event handling code here for the TicketID
                 }
                 else
                 {

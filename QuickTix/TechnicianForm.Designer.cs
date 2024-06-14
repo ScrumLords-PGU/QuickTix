@@ -46,7 +46,7 @@
             textBox1.Location = new Point(320, 312);
             textBox1.Margin = new Padding(2);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(138, 27);
+            textBox1.Size = new Size(138, 23);
             textBox1.TabIndex = 25;
             // 
             // dataGridView1
@@ -83,6 +83,7 @@
             Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             Name = "TechnicianForm";
             Text = "TechnicianForm";
+            WindowState = FormWindowState.Maximized;
             Load += TechnicianForm_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ((System.ComponentModel.ISupportInitialize)bindingSource).EndInit();

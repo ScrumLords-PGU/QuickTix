@@ -34,7 +34,6 @@
             label2 = new Label();
             btnCreateUser = new Button();
             tchView = new Button();
-            tchForm = new Button();
             cstForm = new Button();
             flowLayoutPanel1 = new FlowLayoutPanel();
             roleAssignment = new ComboBox();
@@ -99,21 +98,10 @@
             tchView.UseVisualStyleBackColor = true;
             tchView.Click += tchView_Click;
             // 
-            // tchForm
-            // 
-            tchForm.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            tchForm.Location = new Point(154, 3);
-            tchForm.Name = "tchForm";
-            tchForm.Size = new Size(145, 61);
-            tchForm.TabIndex = 6;
-            tchForm.Text = "Technician Form";
-            tchForm.UseVisualStyleBackColor = true;
-            tchForm.Click += tchForm_Click;
-            // 
             // cstForm
             // 
             cstForm.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            cstForm.Location = new Point(305, 3);
+            cstForm.Location = new Point(154, 3);
             cstForm.Name = "cstForm";
             cstForm.Size = new Size(142, 61);
             cstForm.TabIndex = 7;
@@ -124,11 +112,10 @@
             // flowLayoutPanel1
             // 
             flowLayoutPanel1.Controls.Add(tchView);
-            flowLayoutPanel1.Controls.Add(tchForm);
             flowLayoutPanel1.Controls.Add(cstForm);
-            flowLayoutPanel1.Location = new Point(40, 8);
+            flowLayoutPanel1.Location = new Point(216, 12);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(454, 68);
+            flowLayoutPanel1.Size = new Size(300, 68);
             flowLayoutPanel1.TabIndex = 8;
             // 
             // roleAssignment
@@ -164,6 +151,7 @@
             Controls.Add(txtNewPassword);
             Controls.Add(txtNewUsername);
             Name = "AdminForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "AdminForm";
             flowLayoutPanel1.ResumeLayout(false);
             ResumeLayout(false);
@@ -178,7 +166,6 @@
         private Label label2;
         private Button btnCreateUser;
         private Button tchView;
-        private Button tchForm;
         private Button cstForm;
         private FlowLayoutPanel flowLayoutPanel1;
         private ComboBox roleAssignment;

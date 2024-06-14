@@ -113,6 +113,7 @@
             Controls.Add(label1);
             Margin = new Padding(2);
             Name = "LoginForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Login";
             ResumeLayout(false);
             PerformLayout();

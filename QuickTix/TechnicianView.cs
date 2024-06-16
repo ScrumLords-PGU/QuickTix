@@ -15,23 +15,29 @@ namespace QuickTix
         {
             quicktixdbConnection = connection;
             InitializeComponent();
-            LoadData();
-            LoadCategories();
-            LoadPriorities();
-            LoadCatagories();
-
-            this.Load += new EventHandler(TechnicianView_Load); // Ensure the Load event is hooked
-            listOpen.ItemActivate += new EventHandler(listView1_ItemActivate);
+            this.Load += new EventHandler(TechnicianView_Load); 
         }
 
         private void TechnicianView_Load(object sender, EventArgs e)
         {
+            LoadData();
+            LoadCategories();
+            LoadPriorities();
+            LoadCatagories();
             PopulateTechnicianComboBox();
+            listAssigned.ItemActivate += new EventHandler(listAssigned_ItemActivate);
+            listOpen.ItemActivate += new EventHandler(listOpen_ItemActivate);
+            listClosed.ItemActivate += new EventHandler(listClosed_ItemActivate);
+            listResolved.ItemActivate += new EventHandler(listResolved_ItemActivate);
         }
 
         private void LoadData()
         {
-            string query = "SELECT TicketID, Title FROM dbo.Tickets";
+            string OpenTickets = "dbo.GetOpenTickets";
+            string AssignedTickets = "dbo.GetAssignedTickets";
+            string ResolvedTickets = "dbo.GetResolvedTickets";
+            string ClosedTickets = "dbo.GetClosedTickets";
+
             try
             {
                 if (quicktixdbConnection == null)
@@ -45,8 +51,10 @@ namespace QuickTix
                     quicktixdbConnection.Open();
                 }
 
-                using (SqlCommand command = new SqlCommand(query, quicktixdbConnection))
+                using (SqlCommand command = new SqlCommand(OpenTickets, quicktixdbConnection))
                 {
+                    command.CommandType = CommandType.StoredProcedure;
+
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
                         // Clear existing items and columns
@@ -54,8 +62,9 @@ namespace QuickTix
                         listOpen.Columns.Clear();
 
                         // Define the single column
-                        listOpen.Columns.Add("Ticket #", 80);
-                        listOpen.Columns.Add("Title", 500);
+                        listOpen.Columns.Add("#", 80);
+                        listOpen.Columns.Add("Ticket", 250);
+                        
 
                         listOpen.View = View.Details;
 
@@ -71,14 +80,103 @@ namespace QuickTix
                         }
                     }
                 }
+                using (SqlCommand command = new SqlCommand(AssignedTickets, quicktixdbConnection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
 
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        // Clear existing items and columns
+                        listAssigned.Items.Clear();
+                        listAssigned.Columns.Clear();
+
+                        // Define the single column
+                        listAssigned.Columns.Add("#", 40);
+                        listAssigned.Columns.Add("Ticket", 250);
+                        listAssigned.Columns.Add("Tech", 300);
+
+                        listAssigned.View = View.Details;
+
+                        while (reader.Read())
+                        {
+                            // Create a new ListViewItem with the TicketID value
+                            ListViewItem item = new ListViewItem(reader["TicketID"].ToString());
+                            // Add the Title as a sub-item
+                            item.SubItems.Add(reader["Title"].ToString());
+                            item.SubItems.Add(reader["AssignedTo"].ToString());
+
+                            // Add the ListViewItem to the ListView
+                            listAssigned.Items.Add(item);
+                        }
+                    }
+                }
+                using (SqlCommand command = new SqlCommand(ClosedTickets, quicktixdbConnection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        // Clear existing items and columns
+                        listClosed.Items.Clear();
+                        listClosed.Columns.Clear();
+
+                        // Define the single column
+                        listClosed.Columns.Add("Ticket #", 80);
+                        listClosed.Columns.Add("Ticket Title", 500);
+
+                        listClosed.View = View.Details;
+
+                        while (reader.Read())
+                        {
+                            // Create a new ListViewItem with the TicketID value
+                            ListViewItem item = new ListViewItem(reader["TicketID"].ToString());
+                            // Add the Title as a sub-item
+                            item.SubItems.Add(reader["Title"].ToString());
+
+                            // Add the ListViewItem to the ListView
+                            listClosed.Items.Add(item);
+                        }
+                    }
+                }
+                using (SqlCommand command = new SqlCommand(ResolvedTickets, quicktixdbConnection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        // Clear existing items and columns
+                        listResolved.Items.Clear();
+                        listResolved.Columns.Clear();
+
+                        // Define the single column
+                        listResolved.Columns.Add("Ticket #", 80);
+                        listResolved.Columns.Add("Ticket Title", 500);
+
+                        listResolved.View = View.Details;
+
+                        while (reader.Read())
+                        {
+                            // Create a new ListViewItem with the TicketID value
+                            ListViewItem item = new ListViewItem(reader["TicketID"].ToString());
+                            // Add the Title as a sub-item
+                            item.SubItems.Add(reader["Title"].ToString());
+
+                            // Add the ListViewItem to the ListView
+                            listResolved.Items.Add(item);
+                        }
+                    }
+                }
                 quicktixdbConnection.Close();
+            
             }
+            
+        
             catch (Exception ex)
             {
                 MessageBox.Show("An error occurred: " + ex.Message);
             }
         }
+
 
         private List<string> GetTechnicianUsers()
         {
@@ -226,11 +324,41 @@ namespace QuickTix
             }
         }
 
-        private void listView1_ItemActivate(object sender, EventArgs e)
+        private void listOpen_ItemActivate(object sender, EventArgs e)
         {
             if (listOpen.SelectedItems.Count > 0)
             {
                 ListViewItem selectedItem = listOpen.SelectedItems[0];
+                string ticketID = selectedItem.Text; // TicketID is in the first column
+
+                PopulateTicketDetails(int.Parse(ticketID));
+            }
+        }
+        private void listAssigned_ItemActivate(object sender, EventArgs e)
+        {
+            if (listAssigned.SelectedItems.Count > 0)
+            {
+                ListViewItem selectedItem = listAssigned.SelectedItems[0];
+                string ticketID = selectedItem.Text; // TicketID is in the first column
+
+                PopulateTicketDetails(int.Parse(ticketID));
+            }
+        }
+        private void listResolved_ItemActivate(object sender, EventArgs e)
+        {
+            if (listResolved.SelectedItems.Count > 0)
+            {
+                ListViewItem selectedItem = listResolved.SelectedItems[0];
+                string ticketID = selectedItem.Text; // TicketID is in the first column
+
+                PopulateTicketDetails(int.Parse(ticketID));
+            }
+        }
+        private void listClosed_ItemActivate(object sender, EventArgs e)
+        {
+            if (listClosed.SelectedItems.Count > 0)
+            {
+                ListViewItem selectedItem = listClosed.SelectedItems[0];
                 string ticketID = selectedItem.Text; // TicketID is in the first column
 
                 PopulateTicketDetails(int.Parse(ticketID));

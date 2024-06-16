@@ -36,7 +36,8 @@
             listAssigned = new ListView();
             tabClosed = new TabPage();
             listClosed = new ListView();
-            tabResolved = new TabPage();
+            tabResovled = new TabPage();
+            listResolved = new ListView();
             lblComment = new Label();
             lblDescription = new Label();
             txtComment = new TextBox();
@@ -78,6 +79,7 @@
             tabOpen.SuspendLayout();
             tabAssigned.SuspendLayout();
             tabClosed.SuspendLayout();
+            tabResovled.SuspendLayout();
             flowLayoutPanelComments.SuspendLayout();
             SuspendLayout();
             // 
@@ -128,7 +130,7 @@
             splitContainer1.Panel2.Controls.Add(label3);
             splitContainer1.Panel2.Controls.Add(label2);
             splitContainer1.Size = new Size(1664, 861);
-            splitContainer1.SplitterDistance = 410;
+            splitContainer1.SplitterDistance = 510;
             splitContainer1.SplitterWidth = 2;
             splitContainer1.TabIndex = 0;
             // 
@@ -137,14 +139,14 @@
             tabControl.Controls.Add(tabOpen);
             tabControl.Controls.Add(tabAssigned);
             tabControl.Controls.Add(tabClosed);
-            tabControl.Controls.Add(tabResolved);
+            tabControl.Controls.Add(tabResovled);
             tabControl.Dock = DockStyle.Fill;
             tabControl.ImeMode = ImeMode.Off;
             tabControl.Location = new Point(0, 0);
             tabControl.Margin = new Padding(2, 1, 2, 1);
             tabControl.Name = "tabControl";
             tabControl.SelectedIndex = 0;
-            tabControl.Size = new Size(410, 861);
+            tabControl.Size = new Size(510, 861);
             tabControl.TabIndex = 0;
             // 
             // tabOpen
@@ -155,7 +157,7 @@
             tabOpen.Margin = new Padding(2, 1, 2, 1);
             tabOpen.Name = "tabOpen";
             tabOpen.Padding = new Padding(2, 1, 2, 1);
-            tabOpen.Size = new Size(402, 833);
+            tabOpen.Size = new Size(502, 833);
             tabOpen.TabIndex = 0;
             tabOpen.Text = "Open";
             tabOpen.UseVisualStyleBackColor = true;
@@ -175,7 +177,7 @@
             listOpen.Name = "listOpen";
             listOpen.RightToLeft = RightToLeft.No;
             listOpen.ShowItemToolTips = true;
-            listOpen.Size = new Size(398, 831);
+            listOpen.Size = new Size(498, 831);
             listOpen.TabIndex = 1;
             listOpen.TileSize = new Size(400, 80);
             listOpen.UseCompatibleStateImageBehavior = false;
@@ -188,7 +190,7 @@
             tabAssigned.Margin = new Padding(2, 1, 2, 1);
             tabAssigned.Name = "tabAssigned";
             tabAssigned.Padding = new Padding(2, 1, 2, 1);
-            tabAssigned.Size = new Size(332, 833);
+            tabAssigned.Size = new Size(467, 833);
             tabAssigned.TabIndex = 1;
             tabAssigned.Text = "Assigned";
             tabAssigned.UseVisualStyleBackColor = true;
@@ -208,7 +210,7 @@
             listAssigned.Name = "listAssigned";
             listAssigned.RightToLeft = RightToLeft.No;
             listAssigned.ShowItemToolTips = true;
-            listAssigned.Size = new Size(328, 831);
+            listAssigned.Size = new Size(463, 831);
             listAssigned.TabIndex = 1;
             listAssigned.TileSize = new Size(400, 80);
             listAssigned.UseCompatibleStateImageBehavior = false;
@@ -221,7 +223,7 @@
             tabClosed.Margin = new Padding(2, 1, 2, 1);
             tabClosed.Name = "tabClosed";
             tabClosed.Padding = new Padding(2, 1, 2, 1);
-            tabClosed.Size = new Size(332, 833);
+            tabClosed.Size = new Size(467, 833);
             tabClosed.TabIndex = 2;
             tabClosed.Text = "Closed";
             tabClosed.UseVisualStyleBackColor = true;
@@ -241,20 +243,42 @@
             listClosed.Name = "listClosed";
             listClosed.RightToLeft = RightToLeft.No;
             listClosed.ShowItemToolTips = true;
-            listClosed.Size = new Size(328, 831);
+            listClosed.Size = new Size(463, 831);
             listClosed.TabIndex = 0;
             listClosed.TileSize = new Size(400, 80);
             listClosed.UseCompatibleStateImageBehavior = false;
             listClosed.View = View.List;
             // 
-            // tabResolved
+            // tabResovled
             // 
-            tabResolved.Location = new Point(4, 24);
-            tabResolved.Name = "tabResolved";
-            tabResolved.Size = new Size(332, 833);
-            tabResolved.TabIndex = 3;
-            tabResolved.Text = "Resolved";
-            tabResolved.UseVisualStyleBackColor = true;
+            tabResovled.Controls.Add(listResolved);
+            tabResovled.Location = new Point(4, 24);
+            tabResovled.Name = "tabResovled";
+            tabResovled.Size = new Size(467, 833);
+            tabResovled.TabIndex = 3;
+            tabResovled.Text = "Resolved";
+            tabResovled.UseVisualStyleBackColor = true;
+            // 
+            // listResolved
+            // 
+            listResolved.Activation = ItemActivation.OneClick;
+            listResolved.BorderStyle = BorderStyle.FixedSingle;
+            listResolved.Cursor = Cursors.Hand;
+            listResolved.Dock = DockStyle.Fill;
+            listResolved.Font = new Font("Segoe UI", 14F);
+            listResolved.FullRowSelect = true;
+            listResolved.GridLines = true;
+            listResolved.Location = new Point(0, 0);
+            listResolved.Margin = new Padding(2);
+            listResolved.MultiSelect = false;
+            listResolved.Name = "listResolved";
+            listResolved.RightToLeft = RightToLeft.No;
+            listResolved.ShowItemToolTips = true;
+            listResolved.Size = new Size(467, 833);
+            listResolved.TabIndex = 1;
+            listResolved.TileSize = new Size(400, 80);
+            listResolved.UseCompatibleStateImageBehavior = false;
+            listResolved.View = View.List;
             // 
             // lblComment
             // 
@@ -558,7 +582,7 @@
             // 
             // lgOut
             // 
-            lgOut.Location = new Point(1092, 25);
+            lgOut.Location = new Point(1022, 15);
             lgOut.Margin = new Padding(3, 2, 3, 2);
             lgOut.Name = "lgOut";
             lgOut.Size = new Size(111, 27);
@@ -620,6 +644,7 @@
             tabOpen.ResumeLayout(false);
             tabAssigned.ResumeLayout(false);
             tabClosed.ResumeLayout(false);
+            tabResovled.ResumeLayout(false);
             flowLayoutPanelComments.ResumeLayout(false);
             flowLayoutPanelComments.PerformLayout();
             ResumeLayout(false);
@@ -668,6 +693,7 @@
         private Label lblComment;
         private Label lblDescription;
         private TextBox txtComment;
-        private TabPage tabResolved;
+        private TabPage tabResovled;
+        private ListView listResolved;
     }
 }

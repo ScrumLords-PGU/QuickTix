@@ -27,9 +27,21 @@ namespace QuickTix
         //Method loads data from database, to fill in form known information (name, email, phone ect)
         private void LoadData()
         {
+            try
+            {
+                string query = "SELECT UserName, Email, Phone FROM Users WHERE UserID = @UserID"; //Placeholder for stored procedure
 
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+
+                }
+            }
+            catch 
+            { 
+                
+            }
         }
-        //Returns chosen status value as string
+        //Returns chosen priority value as string
         private void cbPriority_SelectedIndexChanged(object sender, EventArgs e)
         {
             priority = cdPriority.SelectedItem.ToString();
@@ -43,14 +55,14 @@ namespace QuickTix
                 return;
             }
 
-            if (string.IsNullOrEmpty(tbDetails.Text))
+            if (string.IsNullOrEmpty(txtDetails.Text))
             {
                 MessageBox.Show("Please enter comments before submitting the ticket.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             try
             {
-                SaveToDatabase(priority, tbDetails.Text);
+                SaveToDatabase(priority, txtDetails.Text);
             }
             catch (Exception ex)
             {
@@ -59,8 +71,7 @@ namespace QuickTix
 
         }
 
-        //Method saves information to database
-        //TODO: add other values from the form
+        //TODO: Replace with stored procedure
         private void SaveToDatabase(string statusOption, string comments)
         {
             string query = "INSERT INTO Tickets (Status, Comments) VALUES (@Status, @Comments)";

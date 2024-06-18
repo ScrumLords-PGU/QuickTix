@@ -1,4 +1,4 @@
-﻿using Microsoft.Data.SqlClient;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -39,6 +39,33 @@ public class Controller
             return false;
         }
     }
+
+    public bool AdminTestConnection()
+    {
+        try
+        {
+            if (connection != null && connection.State == System.Data.ConnectionState.Open)
+            {
+                // Perform a simple query to ensure the connection is valid
+                SqlCommand command = new SqlCommand("SELECT 1", connection);
+                command.ExecuteScalar();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        catch (Exception)
+        {
+            return false;
+        }
+    }
+    public void SaveToDatabase(string priority, string details)
+    {
+
+    }
+
     public DataTable GetData(string query)
     {
         DataTable dataTable = new DataTable();

@@ -1,25 +1,27 @@
-﻿using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using System.Data.SqlClient;
 using System.Windows.Forms;
-using Microsoft.Data.SqlClient;
-using Microsoft.VisualBasic.ApplicationServices;
-using System.DirectoryServices.ActiveDirectory;
-using QuickTix;
+/*
+AliceSmith password123! Technician
+BobJohnson password123! Technician
+CharlieBrown password123! Technician
+DianaPrince password123! Technician
+EvanWright password123! Technician
+FrankMiller password123! Customer
+GraceHopper password123! Customer
+HenryFord password123! Customer
+IreneCurie password123! Customer
+JackLondon password123! Customer
 
+ */
 namespace QuickTix
 {
     public partial class LoginForm : Form
     {
+        public event Action<string, SqlConnection, string, string> LoginSuccessful; // Modify event to include username and password
+
         private SqlConnection connection;
-       
-                
+
         public LoginForm()
         {
             InitializeComponent();
@@ -27,40 +29,51 @@ namespace QuickTix
 
         public void btnConnect_Click(object sender, EventArgs e)
         {
-            bool isValid = true;
             string user_name = tbUsername.Text;
             string password = tbPassword.Text;
-            string connectionString = ("Server = tcp:quicktixsrvr.database.windows.net, 1433; " +
-                    "Initial Catalog = quicktixdb; Persist Security Info = False;" +
-                    "User ID =  " + user_name + ";" +
-                    "Password = " + password + ";" +
-                    "MultipleActiveResultSets = False; Encrypt = True; TrustServerCertificate = False; Connection Timeout = 30;");
+            string quicktixdbConnectionString = $"Server=tcp:quicktixsrvr.database.windows.net,1433;Initial Catalog=quicktixdb;Persist Security Info=False;" +
+                $"User ID={user_name};Password={password};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
             try
             {
-                connection = new SqlConnection(connectionString);
+                connection = new SqlConnection(quicktixdbConnectionString);
                 connection.Open();
 
-                
-                Controller controller = new Controller(connection);
-                if (controller.TestConnection())
+                string userRole = GetUserRole(user_name, password);
+
+                if (userRole != null)
                 {
-                    MessageBox.Show("Login Successful");
-                    Thread.Sleep(1000);
                     this.Hide(); // Hide the login form
-                   // TechnicianForm mainForm = new TechnicianForm(connection);
-                    TechnicianView mainForm = new TechnicianView();
-                    mainForm.ShowDialog();
-                    this.Close(); // Close the login form after the main form is closed
+                    LoginSuccessful?.Invoke(userRole, connection, user_name, password); // Trigger the event with the connection, username, and password
                 }
                 else
                 {
-                    MessageBox.Show("Login Failed");
+                    MessageBox.Show("Access denied: Invalid username or password.");
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("An error occurred: " + ex.Message);
+            }
+        }
+
+        private string GetUserRole(string username, string password)
+        {
+            try
+            {
+                string query = "SELECT Role FROM dbo.Users WHERE UserName = @Username AND Password = @Password";
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    cmd.Parameters.AddWithValue("@Username", username);
+                    cmd.Parameters.AddWithValue("@Password", password);
+
+                    return (string)cmd.ExecuteScalar();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred while verifying user role: " + ex.Message);
+                return null;
             }
         }
     }

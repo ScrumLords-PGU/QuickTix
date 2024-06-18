@@ -1,6 +1,6 @@
 ﻿namespace QuickTix
 {
-    partial class LoginForm
+    partial class LoginForm : Form
     {
         /// <summary>
         /// Required designer variable.
@@ -33,43 +33,47 @@
             tbUsername = new TextBox();
             label1 = new Label();
             label5 = new Label();
-            btnConnect = new Button();
+            btnLogin = new Button();
             SuspendLayout();
             // 
             // tbPassword
             // 
-            tbPassword.Location = new Point(160, 144);
+            tbPassword.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            tbPassword.Location = new Point(161, 140);
             tbPassword.Margin = new Padding(2);
             tbPassword.Name = "tbPassword";
-            tbPassword.Size = new Size(280, 23);
+            tbPassword.Size = new Size(224, 29);
             tbPassword.TabIndex = 11;
             tbPassword.UseSystemPasswordChar = true;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(39, 145);
+            label2.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label2.Location = new Point(64, 144);
             label2.Margin = new Padding(2, 0, 2, 0);
             label2.Name = "label2";
-            label2.Size = new Size(60, 15);
+            label2.Size = new Size(95, 25);
             label2.TabIndex = 10;
             label2.Text = "Password:";
             // 
             // tbUsername
             // 
-            tbUsername.Location = new Point(160, 112);
+            tbUsername.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            tbUsername.Location = new Point(161, 104);
             tbUsername.Margin = new Padding(2);
             tbUsername.Name = "tbUsername";
-            tbUsername.Size = new Size(280, 23);
+            tbUsername.Size = new Size(224, 29);
             tbUsername.TabIndex = 9;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(39, 115);
+            label1.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Location = new Point(56, 104);
             label1.Margin = new Padding(2, 0, 2, 0);
             label1.Name = "label1";
-            label1.Size = new Size(63, 15);
+            label1.Size = new Size(101, 25);
             label1.TabIndex = 8;
             label1.Text = "Username:";
             // 
@@ -84,23 +88,24 @@
             label5.TabIndex = 16;
             label5.Text = "Welcome to QuickTix!";
             // 
-            // btnConnect
+            // btnLogin
             // 
-            btnConnect.Location = new Point(232, 192);
-            btnConnect.Margin = new Padding(2);
-            btnConnect.Name = "btnConnect";
-            btnConnect.Size = new Size(107, 35);
-            btnConnect.TabIndex = 17;
-            btnConnect.Text = "Login";
-            btnConnect.UseVisualStyleBackColor = true;
-            btnConnect.Click += btnConnect_Click;
+            btnLogin.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnLogin.Location = new Point(208, 192);
+            btnLogin.Margin = new Padding(2);
+            btnLogin.Name = "btnLogin";
+            btnLogin.Size = new Size(128, 56);
+            btnLogin.TabIndex = 17;
+            btnLogin.Text = "Login";
+            btnLogin.UseVisualStyleBackColor = true;
+            btnLogin.Click += btnConnect_Click;
             // 
             // LoginForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(560, 270);
-            Controls.Add(btnConnect);
+            Controls.Add(btnLogin);
             Controls.Add(label5);
             Controls.Add(tbPassword);
             Controls.Add(label2);
@@ -108,7 +113,8 @@
             Controls.Add(label1);
             Margin = new Padding(2);
             Name = "LoginForm";
-            Text = "Form2";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Login";
             ResumeLayout(false);
             PerformLayout();
         }
@@ -119,7 +125,6 @@
         private TextBox tbUsername;
         private Label label1;
         private Label label5;
-        private Button btnConnect;
-        
+        private Button btnLogin;
     }
 }

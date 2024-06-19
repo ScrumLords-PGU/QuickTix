@@ -45,6 +45,7 @@
             tbPassword.Size = new Size(224, 29);
             tbPassword.TabIndex = 11;
             tbPassword.UseSystemPasswordChar = true;
+            tbPassword.KeyDown += tbPassword_KeyDown;
             // 
             // label2
             // 
@@ -65,6 +66,7 @@
             tbUsername.Name = "tbUsername";
             tbUsername.Size = new Size(224, 29);
             tbUsername.TabIndex = 9;
+            tbUsername.KeyDown += tbUsername_KeyDown;
             // 
             // label1
             // 

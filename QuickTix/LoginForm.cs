@@ -76,5 +76,23 @@ namespace QuickTix
                 return null;
             }
         }
+
+        //(jose) Keyboard enter works to move to next line and enter to login
+        private void tbUsername_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                tbPassword.Focus();
+            }
+        }
+
+
+        private void tbPassword_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter)
+            {
+                btnLogin.PerformClick();
+            }
+        }
     }
 }

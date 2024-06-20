@@ -37,7 +37,7 @@ namespace QuickTix
         {
             try
             {
-                //TODO: Below variable is a placeholder. Needs stored procedure to load known data (UserName, Email, Phone)  
+                //TODO: Below variable is a placeholder. Needs method to load known data (UserName, Email, Phone)  
 
                 string query = "SELECT UserName, Email, Phone FROM Users WHERE UserID = @UserID"; //Placeholder for stored procedure
 

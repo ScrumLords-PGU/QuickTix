@@ -56,8 +56,8 @@ namespace QuickTix
             // 
             // btSubmit
             // 
-            btSubmit.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btSubmit.Location = new Point(486, 550);
+            btSubmit.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btSubmit.Location = new Point(488, 572);
             btSubmit.Margin = new Padding(2, 3, 2, 3);
             btSubmit.Name = "btSubmit";
             btSubmit.Size = new Size(280, 52);
@@ -88,11 +88,11 @@ namespace QuickTix
             // lbDetails
             // 
             lbDetails.AutoSize = true;
-            lbDetails.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold);
+            lbDetails.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbDetails.Location = new Point(56, 244);
             lbDetails.Margin = new Padding(2, 0, 2, 0);
             lbDetails.Name = "lbDetails";
-            lbDetails.Size = new Size(94, 31);
+            lbDetails.Size = new Size(91, 31);
             lbDetails.TabIndex = 21;
             lbDetails.Text = "Details:";
             // 
@@ -110,21 +110,21 @@ namespace QuickTix
             // lbPriority
             // 
             lbPriority.AutoSize = true;
-            lbPriority.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold);
+            lbPriority.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbPriority.Location = new Point(49, 47);
             lbPriority.Margin = new Padding(2, 0, 2, 0);
             lbPriority.Name = "lbPriority";
-            lbPriority.Size = new Size(101, 31);
+            lbPriority.Size = new Size(97, 31);
             lbPriority.TabIndex = 19;
             lbPriority.Text = "Priority:";
             // 
             // lbLocation
             // 
             lbLocation.AutoSize = true;
-            lbLocation.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold);
+            lbLocation.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbLocation.Location = new Point(94, 289);
             lbLocation.Name = "lbLocation";
-            lbLocation.Size = new Size(113, 31);
+            lbLocation.Size = new Size(109, 31);
             lbLocation.TabIndex = 26;
             lbLocation.Text = "Location:";
             // 
@@ -139,17 +139,17 @@ namespace QuickTix
             // lbCategory
             // 
             lbCategory.AutoSize = true;
-            lbCategory.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold);
+            lbCategory.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbCategory.Location = new Point(33, 111);
             lbCategory.Name = "lbCategory";
-            lbCategory.Size = new Size(117, 31);
+            lbCategory.Size = new Size(116, 31);
             lbCategory.TabIndex = 28;
             lbCategory.Text = "Category:";
             // 
             // btLgOut
             // 
-            btLgOut.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btLgOut.Location = new Point(570, 635);
+            btLgOut.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btLgOut.Location = new Point(569, 651);
             btLgOut.Margin = new Padding(3, 4, 3, 4);
             btLgOut.Name = "btLgOut";
             btLgOut.Size = new Size(115, 43);
@@ -162,7 +162,7 @@ namespace QuickTix
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(287, 20);
+            label1.Location = new Point(332, 18);
             label1.Name = "label1";
             label1.Size = new Size(675, 46);
             label1.TabIndex = 31;
@@ -201,21 +201,21 @@ namespace QuickTix
             // lbUserName
             // 
             lbUserName.AutoSize = true;
-            lbUserName.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold);
+            lbUserName.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbUserName.ForeColor = SystemColors.ControlText;
             lbUserName.Location = new Point(70, 81);
             lbUserName.Name = "lbUserName";
-            lbUserName.Size = new Size(137, 31);
+            lbUserName.Size = new Size(135, 31);
             lbUserName.TabIndex = 32;
             lbUserName.Text = "User Name:";
             // 
             // lbPhone
             // 
             lbPhone.AutoSize = true;
-            lbPhone.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold);
+            lbPhone.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbPhone.Location = new Point(24, 150);
             lbPhone.Name = "lbPhone";
-            lbPhone.Size = new Size(183, 31);
+            lbPhone.Size = new Size(178, 31);
             lbPhone.TabIndex = 31;
             lbPhone.Text = "Phone Number:";
             // 
@@ -238,10 +238,10 @@ namespace QuickTix
             // lbEmail
             // 
             lbEmail.AutoSize = true;
-            lbEmail.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold);
+            lbEmail.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbEmail.Location = new Point(128, 220);
             lbEmail.Name = "lbEmail";
-            lbEmail.Size = new Size(79, 31);
+            lbEmail.Size = new Size(76, 31);
             lbEmail.TabIndex = 28;
             lbEmail.Text = "Email:";
             // 
@@ -274,11 +274,11 @@ namespace QuickTix
             // lbSubject
             // 
             lbSubject.AutoSize = true;
-            lbSubject.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold);
+            lbSubject.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbSubject.Location = new Point(50, 180);
             lbSubject.Margin = new Padding(2, 0, 2, 0);
             lbSubject.Name = "lbSubject";
-            lbSubject.Size = new Size(100, 31);
+            lbSubject.Size = new Size(97, 31);
             lbSubject.TabIndex = 29;
             lbSubject.Text = "Subject:";
             // 
@@ -297,7 +297,7 @@ namespace QuickTix
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
-            ClientSize = new Size(1262, 701);
+            ClientSize = new Size(1262, 717);
             Controls.Add(label1);
             Controls.Add(btLgOut);
             Controls.Add(btSubmit);

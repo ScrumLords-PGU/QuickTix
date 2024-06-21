@@ -20,7 +20,7 @@ namespace QuickTix
             Application.Run(loginForm);
         }
 
-        private static void OnLoginSuccessful(string userRole, SqlConnection connection, string userName, string password)
+        private static void OnLoginSuccessful(string userRole, SqlConnection connection, string userName, string password, int userId)
         {
             // Create and show the main form based on user role
             Form mainForm = null;
@@ -35,7 +35,7 @@ namespace QuickTix
             }
             else if (userRole == "Customer")
             {
-                mainForm = new CustomerForm(connection);
+                mainForm = new CustomerForm(connection, userId);
             }
 
             if (mainForm != null)

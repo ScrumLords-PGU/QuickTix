@@ -30,7 +30,7 @@ namespace QuickTix
         {
             btSubmit = new Button();
             lbTicketInfo = new Label();
-            tbDetails = new TextBox();
+            tbDescription = new TextBox();
             lbDetails = new Label();
             cbPriority = new ComboBox();
             lbPriority = new Label();
@@ -47,7 +47,7 @@ namespace QuickTix
             tbEmail = new TextBox();
             lbEmail = new Label();
             TicketDetails = new GroupBox();
-            tbSubject = new TextBox();
+            tbTitle = new TextBox();
             lbSubject = new Label();
             cbCategory = new ComboBox();
             groupBox1.SuspendLayout();
@@ -61,7 +61,7 @@ namespace QuickTix
             btSubmit.Margin = new Padding(2, 3, 2, 3);
             btSubmit.Name = "btSubmit";
             btSubmit.Size = new Size(280, 52);
-            btSubmit.TabIndex = 7;
+            btSubmit.TabIndex = 9;
             btSubmit.Text = "Submit Ticket";
             btSubmit.UseVisualStyleBackColor = true;
             btSubmit.Click += buttonSubmit_Click;
@@ -75,26 +75,26 @@ namespace QuickTix
             lbTicketInfo.Size = new Size(0, 20);
             lbTicketInfo.TabIndex = 23;
             // 
-            // tbDetails
+            // tbDescription
             // 
-            tbDetails.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            tbDetails.Location = new Point(171, 244);
-            tbDetails.Margin = new Padding(2, 3, 2, 3);
-            tbDetails.Multiline = true;
-            tbDetails.Name = "tbDetails";
-            tbDetails.Size = new Size(315, 143);
-            tbDetails.TabIndex = 6;
+            tbDescription.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            tbDescription.Location = new Point(171, 244);
+            tbDescription.Margin = new Padding(2, 3, 2, 3);
+            tbDescription.Multiline = true;
+            tbDescription.Name = "tbDescription";
+            tbDescription.Size = new Size(315, 143);
+            tbDescription.TabIndex = 8;
             // 
             // lbDetails
             // 
             lbDetails.AutoSize = true;
             lbDetails.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lbDetails.Location = new Point(56, 244);
+            lbDetails.Location = new Point(9, 244);
             lbDetails.Margin = new Padding(2, 0, 2, 0);
             lbDetails.Name = "lbDetails";
-            lbDetails.Size = new Size(91, 31);
+            lbDetails.Size = new Size(140, 31);
             lbDetails.TabIndex = 21;
-            lbDetails.Text = "Details:";
+            lbDetails.Text = "Description:";
             // 
             // cbPriority
             // 
@@ -115,7 +115,7 @@ namespace QuickTix
             lbPriority.Margin = new Padding(2, 0, 2, 0);
             lbPriority.Name = "lbPriority";
             lbPriority.Size = new Size(97, 31);
-            lbPriority.TabIndex = 19;
+            lbPriority.TabIndex = 5;
             lbPriority.Text = "Priority:";
             // 
             // lbLocation
@@ -134,7 +134,7 @@ namespace QuickTix
             tbLocation.Location = new Point(236, 289);
             tbLocation.Name = "tbLocation";
             tbLocation.Size = new Size(237, 34);
-            tbLocation.TabIndex = 3;
+            tbLocation.TabIndex = 4;
             // 
             // lbCategory
             // 
@@ -153,7 +153,7 @@ namespace QuickTix
             btLgOut.Margin = new Padding(3, 4, 3, 4);
             btLgOut.Name = "btLgOut";
             btLgOut.Size = new Size(115, 43);
-            btLgOut.TabIndex = 8;
+            btLgOut.TabIndex = 10;
             btLgOut.Text = "Logout";
             btLgOut.UseVisualStyleBackColor = true;
             btLgOut.Click += lgOut_Click;
@@ -196,7 +196,7 @@ namespace QuickTix
             tbUserName.Name = "tbUserName";
             tbUserName.ReadOnly = true;
             tbUserName.Size = new Size(235, 31);
-            tbUserName.TabIndex = 33;
+            tbUserName.TabIndex = 11;
             // 
             // lbUserName
             // 
@@ -225,7 +225,7 @@ namespace QuickTix
             tbPhone.Location = new Point(236, 150);
             tbPhone.Name = "tbPhone";
             tbPhone.Size = new Size(237, 34);
-            tbPhone.TabIndex = 1;
+            tbPhone.TabIndex = 2;
             // 
             // tbEmail
             // 
@@ -233,7 +233,7 @@ namespace QuickTix
             tbEmail.Location = new Point(236, 220);
             tbEmail.Name = "tbEmail";
             tbEmail.Size = new Size(237, 34);
-            tbEmail.TabIndex = 2;
+            tbEmail.TabIndex = 3;
             // 
             // lbEmail
             // 
@@ -247,11 +247,11 @@ namespace QuickTix
             // 
             // TicketDetails
             // 
-            TicketDetails.Controls.Add(tbSubject);
+            TicketDetails.Controls.Add(tbTitle);
             TicketDetails.Controls.Add(lbSubject);
             TicketDetails.Controls.Add(cbCategory);
             TicketDetails.Controls.Add(lbPriority);
-            TicketDetails.Controls.Add(tbDetails);
+            TicketDetails.Controls.Add(tbDescription);
             TicketDetails.Controls.Add(cbPriority);
             TicketDetails.Controls.Add(lbDetails);
             TicketDetails.Controls.Add(lbCategory);
@@ -263,24 +263,24 @@ namespace QuickTix
             TicketDetails.TabStop = false;
             TicketDetails.Text = "Ticket Details";
             // 
-            // tbSubject
+            // tbTitle
             // 
-            tbSubject.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            tbSubject.Location = new Point(171, 180);
-            tbSubject.Name = "tbSubject";
-            tbSubject.Size = new Size(315, 34);
-            tbSubject.TabIndex = 30;
+            tbTitle.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            tbTitle.Location = new Point(171, 180);
+            tbTitle.Name = "tbTitle";
+            tbTitle.Size = new Size(315, 34);
+            tbTitle.TabIndex = 7;
             // 
             // lbSubject
             // 
             lbSubject.AutoSize = true;
             lbSubject.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lbSubject.Location = new Point(50, 180);
+            lbSubject.Location = new Point(81, 180);
             lbSubject.Margin = new Padding(2, 0, 2, 0);
             lbSubject.Name = "lbSubject";
-            lbSubject.Size = new Size(97, 31);
+            lbSubject.Size = new Size(65, 31);
             lbSubject.TabIndex = 29;
-            lbSubject.Text = "Subject:";
+            lbSubject.Text = "Title:";
             // 
             // cbCategory
             // 
@@ -289,7 +289,7 @@ namespace QuickTix
             cbCategory.Location = new Point(171, 111);
             cbCategory.Name = "cbCategory";
             cbCategory.Size = new Size(151, 36);
-            cbCategory.TabIndex = 5;
+            cbCategory.TabIndex = 6;
             cbCategory.SelectedIndexChanged += cbCategory_SelectedIndexChanged;
             // 
             // CustomerForm
@@ -319,7 +319,7 @@ namespace QuickTix
 
         private System.Windows.Forms.Button btSubmit;
         private System.Windows.Forms.Label lbTicketInfo;
-        private System.Windows.Forms.TextBox tbDetails;
+        private System.Windows.Forms.TextBox tbDescription;
         private System.Windows.Forms.Label lbDetails;
         private System.Windows.Forms.ComboBox cbPriority;
         private System.Windows.Forms.Label lbPriority;
@@ -337,7 +337,7 @@ namespace QuickTix
         private ComboBox cbCategory;
         private TextBox tbUserName;
         private Label lbUserName;
-        private TextBox tbSubject;
+        private TextBox tbTitle;
         private Label lbSubject;
     }
 }

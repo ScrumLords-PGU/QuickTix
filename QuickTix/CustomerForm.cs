@@ -16,8 +16,8 @@ namespace QuickTix
     {
         private SqlConnection quicktixdbConnection;
         private int userId;
-        private string priority = "";
-        private string category = "";
+        private int priorityId;
+        private int categoryId;
         public CustomerForm(SqlConnection sqlConnection, int userId)
         {
             InitializeComponent();
@@ -34,8 +34,6 @@ namespace QuickTix
             ToolTip toolTip = new ToolTip();
             toolTip.SetToolTip(tbEmail, tbEmail.Text);
 
-            tbUserName.ForeColor = SystemColors.ControlText;
-
             tbLocation.Select();
         }
 
@@ -44,13 +42,12 @@ namespace QuickTix
         {
             try
             {
-                //TODO: Edit as needed 
 
                 string query = "SELECT UserName, Email, Phone FROM dbo.Users WHERE UserID = @UserID"; 
 
                 using (SqlCommand cmd = new SqlCommand(query, quicktixdbConnection))
                 {
-                    cmd.Parameters.AddWithValue("@UserID", userId);
+                    cmd.Parameters.AddWithValue("@UserId", userId);
 
                     if (quicktixdbConnection.State == ConnectionState.Closed)
                         quicktixdbConnection.Open();
@@ -77,6 +74,21 @@ namespace QuickTix
             }
         }
 
+        public enum Priority
+        {
+            Critical = 1,
+            High = 2,
+            Medium = 3,
+            Low = 4
+        }
+
+        public enum Category
+        {
+            Hardware = 1,
+            Software = 2,
+            Network = 3
+        }
+
         private void InitializePriorityComboBox()
         {
             cbPriority.Items.Clear();
@@ -97,13 +109,27 @@ namespace QuickTix
         //Returns chosen priority value as string
         private void cbPriority_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.priority = cbPriority.SelectedItem.ToString();
+            if (Enum.TryParse(cbPriority.SelectedItem.ToString(), out Priority selectedPriority))
+            {
+                this.priorityId = (int)selectedPriority;
+            }
+            else
+            {
+                this.priorityId = -1; 
+            }
         }
 
         //Returns chosen category value as string
         private void cbCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.category = cbCategory.SelectedItem.ToString();
+            if (Enum.TryParse(cbCategory.SelectedItem.ToString(), out Category selectedCategory))
+            {
+                this.categoryId = (int)selectedCategory;
+            }
+            else
+            {
+                this.categoryId = -1;
+            }
         }
 
         //Validates General Information 
@@ -169,13 +195,13 @@ namespace QuickTix
                 isValid = false;
             }
 
-            if (string.IsNullOrEmpty(tbSubject.Text))
+            if (string.IsNullOrEmpty(tbTitle.Text))
             {
                 errorMessage.AppendLine("Please enter a subject.");
                 isValid = false;
             }
 
-            if (string.IsNullOrEmpty(tbDetails.Text))
+            if (string.IsNullOrEmpty(tbDescription.Text))
             {
                 errorMessage.AppendLine("Please enter the details of your issue.");
                 isValid = false;
@@ -200,7 +226,6 @@ namespace QuickTix
                 isValid = false;
             }
 
-            // Displays all error messages in single box
             if (!isValid)
             {
                 MessageBox.Show(errorMessage.ToString(), "Validation Errors", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -209,7 +234,7 @@ namespace QuickTix
             return isValid;
         }
 
-        //Validates all information befor submit, then sends to SaveToDatabase method
+        //Validates all information before submit, then sends to SaveToDatabase method
         private void buttonSubmit_Click(object sender, EventArgs e)
         {
 
@@ -218,30 +243,73 @@ namespace QuickTix
                 return;
             }
 
-            string username = tbUserName.Text;
             string phone = tbPhone.Text;
             string email = tbEmail.Text;
             string location = tbLocation.Text;
-            this.priority = cbPriority.SelectedItem.ToString();
-            this.category = cbCategory.SelectedItem.ToString();
-            string subject = tbSubject.Text;
-            string details = tbDetails.Text;
+            int priorityId = this.priorityId;
+            int categoryId = this.categoryId;
+            string title = tbTitle.Text;
+            string description = tbDescription.Text;
+            int statusID = 1;
 
-            SaveToDatabase(username, phone, email, location, priority, category, subject, details);
+            UpdateUserInfo(phone, email);
+            SaveToDatabase(this.userId, location, priorityId, categoryId, title, description, statusID);
         }
 
-        //Sends data to database
-        //TODO: Replace with stored procedure
-        private void SaveToDatabase(string username, string phone, string email, string location,
-            string priority, string category, string subject, string details)
+        //TODO: Implement user update information for Sprint 3
+
+        private void UpdateUserInfo(string phone, string email)
         {
-            string query = "INSERT INTO Tickets (Status, Comments) VALUES (@Status, @Comments)";
-            using (SqlCommand command = new SqlCommand(query, quicktixdbConnection))
+            string storedProcedure = "";
+            using (SqlCommand cmd = new SqlCommand()) 
+            {
+                cmd.Parameters.AddWithValue("@Email", email);
+                cmd.Parameters.AddWithValue("@Phone", phone);
+            }
+        }
+
+        //Submits ticket info to database
+        private void SaveToDatabase(int userId, string location,
+            int priorityId, int categoryId, string title, string description, int statusId)
+        {
+            string storedProcedure = "InsertTicket";
+
+            try
             {
 
-            }
+                using (SqlCommand cmd = new SqlCommand(storedProcedure, quicktixdbConnection))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-            MessageBox.Show("Ticket submitted succesfully!");
+                    cmd.Parameters.AddWithValue("@UserID", userId);
+                    cmd.Parameters.AddWithValue("@Location", location);
+                    cmd.Parameters.AddWithValue("@PriorityID", priorityId);
+                    cmd.Parameters.AddWithValue("@CategoryID", categoryId);
+                    cmd.Parameters.AddWithValue("@Title", title);
+                    cmd.Parameters.AddWithValue("@Description", description);
+                    cmd.Parameters.AddWithValue("@StatusID", statusId);
+
+                    if (quicktixdbConnection.State == ConnectionState.Closed)
+                        quicktixdbConnection.Open();
+
+                    
+                    cmd.ExecuteNonQuery();
+                    quicktixdbConnection.Close();
+
+                    MessageBox.Show("Ticket submitted succesfully!");
+                }
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show($"An error occurred while submitting the ticket: {ex.Message}");
+            }
+            finally
+            {
+                if (quicktixdbConnection.State == ConnectionState.Open)
+                {
+                    quicktixdbConnection.Close();
+                }
+            }
         }
 
         private void lgOut_Click(object sender, EventArgs e)

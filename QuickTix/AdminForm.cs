@@ -122,7 +122,10 @@ namespace QuickTix
             {
                 quicktixdbConnection.Open();
             }
-            CustomerForm mainForm = new CustomerForm(quicktixdbConnection);
+
+            int userId = 0;
+
+            CustomerForm mainForm = new CustomerForm(quicktixdbConnection, userId);
             mainForm.Show();
             mainForm.FormClosed += (s, args) =>
             {

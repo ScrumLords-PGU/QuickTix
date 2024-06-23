@@ -18,7 +18,7 @@ namespace QuickTix
 {
     public partial class LoginForm : Form
     {
-        public event Action<string, SqlConnection, string, string> LoginSuccessful; // Modify event to include username and password
+        public event Action<string, SqlConnection, string, string, int> LoginSuccessful; // Modify event to include username and password
 
         private SqlConnection connection;
 
@@ -39,12 +39,14 @@ namespace QuickTix
                 connection = new SqlConnection(quicktixdbConnectionString);
                 connection.Open();
 
+                int userID = GetUserID(user_name, password);
+
                 string userRole = GetUserRole(user_name, password);
 
                 if (userRole != null)
                 {
                     this.Hide(); // Hide the login form
-                    LoginSuccessful?.Invoke(userRole, connection, user_name, password); // Trigger the event with the connection, username, and password
+                    LoginSuccessful?.Invoke(userRole, connection, user_name, password, userID); // Trigger the event with the connection, username, and password
                 }
                 else
                 {
@@ -55,6 +57,31 @@ namespace QuickTix
             {
                 MessageBox.Show("An error occurred: " + ex.Message);
             }
+        }
+
+        private int GetUserID (string username, string password)
+        {
+            try
+            {
+                string query = "SELECT UserID from dbo.Users WHERE Username = @Username AND Password = @Password";
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    cmd.Parameters.AddWithValue("@UserName", username);
+                    cmd.Parameters.AddWithValue("@Password", password);
+
+                    object result = cmd.ExecuteScalar();
+                    if (result != null)
+                    {
+                        return Convert.ToInt32(result);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred while tretrieving user ID: " + ex.Message);
+            }
+
+            return -1;
         }
 
         private string GetUserRole(string username, string password)

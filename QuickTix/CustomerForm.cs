@@ -31,8 +31,9 @@ namespace QuickTix
             InitializePriorityComboBox();
             InitializeCategoryComboBox();
 
-            ToolTip toolTip = new ToolTip();
-            toolTip.SetToolTip(tbEmail, tbEmail.Text);
+            //Sprint 3
+            /*ToolTip toolTip = new ToolTip();
+            toolTip.SetToolTip(tbEmail, tbEmail.Text);*/
 
             tbLocation.Select();
         }
@@ -106,23 +107,21 @@ namespace QuickTix
             cbCategory.Items.Add("Network");
         }
 
-        //Returns chosen priority value as string
         private void cbPriority_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (Enum.TryParse(cbPriority.SelectedItem.ToString(), out Priority selectedPriority))
+            if (cbPriority.SelectedItem != null && Enum.TryParse(cbPriority.SelectedItem.ToString(), out Priority selectedPriority))
             {
                 this.priorityId = (int)selectedPriority;
             }
             else
             {
-                this.priorityId = -1; 
+                this.priorityId = -1;
             }
         }
 
-        //Returns chosen category value as string
         private void cbCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (Enum.TryParse(cbCategory.SelectedItem.ToString(), out Category selectedCategory))
+            if (cbCategory.SelectedItem != null && Enum.TryParse(cbCategory.SelectedItem.ToString(), out Category selectedCategory))
             {
                 this.categoryId = (int)selectedCategory;
             }
@@ -242,9 +241,9 @@ namespace QuickTix
             {
                 return;
             }
-
-            string phone = tbPhone.Text;
-            string email = tbEmail.Text;
+            //TODO: Sprint 3
+            //string phone = tbPhone.Text;
+            //string email = tbEmail.Text;
             string location = tbLocation.Text;
             int priorityId = this.priorityId;
             int categoryId = this.categoryId;
@@ -252,13 +251,14 @@ namespace QuickTix
             string description = tbDescription.Text;
             int statusID = 1;
 
-            UpdateUserInfo(phone, email);
+            //TODO: Sprint 3
+            //UpdateUserInfo(phone, email);
             SaveToDatabase(this.userId, location, priorityId, categoryId, title, description, statusID);
         }
 
         //TODO: Implement user update information for Sprint 3
 
-        private void UpdateUserInfo(string phone, string email)
+        /*private void UpdateUserInfo(string phone, string email)
         {
             string storedProcedure = "";
             using (SqlCommand cmd = new SqlCommand()) 
@@ -266,7 +266,8 @@ namespace QuickTix
                 cmd.Parameters.AddWithValue("@Email", email);
                 cmd.Parameters.AddWithValue("@Phone", phone);
             }
-        }
+        } 
+        */
 
         //Submits ticket info to database
         private void SaveToDatabase(int userId, string location,
@@ -297,6 +298,8 @@ namespace QuickTix
                     quicktixdbConnection.Close();
 
                     MessageBox.Show("Ticket submitted succesfully!");
+
+                    ClearFormFields();
                 }
             }
             catch (SqlException ex)
@@ -312,7 +315,28 @@ namespace QuickTix
             }
         }
 
-        private void lgOut_Click(object sender, EventArgs e)
+        private void ClearFormFields(Control parentControl)
+        {
+            //Reset text boxes 
+            tbLocation.Text = string.Empty;
+            tbTitle.Text = string.Empty;
+            tbDescription.Text = string.Empty;
+
+            // Reset combo boxes
+            cbPriority.SelectedIndex = -1;
+            cbCategory.SelectedIndex = -1;
+
+            // Set focus to the first input field
+            tbLocation.Select();
+        }
+
+        private void ClearFormFields()
+        {
+            ClearFormFields(this); // Start from the form
+            tbLocation.Select(); // Set focus to
+        }
+
+            private void lgOut_Click(object sender, EventArgs e)
         {
             if (quicktixdbConnection != null && quicktixdbConnection.State == ConnectionState.Open)
             {

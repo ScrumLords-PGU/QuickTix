@@ -221,18 +221,24 @@ namespace QuickTix
             // 
             // tbPhone
             // 
+            tbPhone.BorderStyle = BorderStyle.None;
+            tbPhone.Enabled = false;
             tbPhone.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             tbPhone.Location = new Point(236, 150);
             tbPhone.Name = "tbPhone";
-            tbPhone.Size = new Size(237, 34);
+            tbPhone.ReadOnly = true;
+            tbPhone.Size = new Size(237, 27);
             tbPhone.TabIndex = 2;
             // 
             // tbEmail
             // 
+            tbEmail.BorderStyle = BorderStyle.None;
+            tbEmail.Enabled = false;
             tbEmail.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             tbEmail.Location = new Point(236, 220);
             tbEmail.Name = "tbEmail";
-            tbEmail.Size = new Size(237, 34);
+            tbEmail.ReadOnly = true;
+            tbEmail.Size = new Size(237, 27);
             tbEmail.TabIndex = 3;
             // 
             // lbEmail

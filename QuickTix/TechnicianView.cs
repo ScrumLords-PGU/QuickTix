@@ -15,7 +15,7 @@ namespace QuickTix
         {
             quicktixdbConnection = connection;
             InitializeComponent();
-            this.Load += new EventHandler(TechnicianView_Load); 
+            this.Load += new EventHandler(TechnicianView_Load);
         }
 
         private void TechnicianView_Load(object sender, EventArgs e)
@@ -29,6 +29,11 @@ namespace QuickTix
             listOpen.ItemActivate += new EventHandler(listOpen_ItemActivate);
             listClosed.ItemActivate += new EventHandler(listClosed_ItemActivate);
             listResolved.ItemActivate += new EventHandler(listResolved_ItemActivate);
+            showTechViewOverlay(sender, e);
+            System.Drawing.Rectangle ScreenSize = Screen.PrimaryScreen.WorkingArea;
+            this.Size = new System.Drawing.Size(Convert.ToInt32(0.95 * ScreenSize.Width), Convert.ToInt32(0.97 * ScreenSize.Height));
+            this.Location = new System.Drawing.Point(20, 15);
+
         }
 
         private void LoadData()
@@ -64,7 +69,7 @@ namespace QuickTix
                         // Define the single column
                         listOpen.Columns.Add("#", 80);
                         listOpen.Columns.Add("Ticket", 250);
-                        
+
 
                         listOpen.View = View.Details;
 
@@ -167,10 +172,10 @@ namespace QuickTix
                     }
                 }
                 quicktixdbConnection.Close();
-            
+
             }
-            
-        
+
+
             catch (Exception ex)
             {
                 MessageBox.Show("An error occurred: " + ex.Message);
@@ -320,7 +325,7 @@ namespace QuickTix
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"An error occurred while loading priorities: {ex.Message}");
+                MessageBox.Show($"An error occurred while loading categories: {ex.Message}");
             }
         }
 
@@ -425,6 +430,7 @@ namespace QuickTix
                         }
                     }
                 }
+                hideTechViewOverlay();
             }
             catch (Exception ex)
             {
@@ -641,5 +647,23 @@ namespace QuickTix
 
         }
 
+        private void listOpen_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void showTechViewOverlay(object sender, EventArgs e)
+        {
+            panelOverlay.Height = 854;
+            panelOverlay.Width = 1108;
+            panelOverlay.Visible = true;
+        }
+
+        private void hideTechViewOverlay()
+        {
+            panelOverlay.Height =0;
+            panelOverlay.Width = 0;
+            panelOverlay.Visible = false;
+        }
     }
 }

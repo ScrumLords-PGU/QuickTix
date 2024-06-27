@@ -1,14 +1,13 @@
-using System.Data.SqlClient;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Text.RegularExpressions;
 
 namespace QuickTix
 {
@@ -28,28 +27,30 @@ namespace QuickTix
         }
         private void InitializeForm()
         {
-            InitializePriorityComboBox();
-            InitializeCategoryComboBox();
-
-            //Sprint 3
-            /*ToolTip toolTip = new ToolTip();
-            toolTip.SetToolTip(tbEmail, tbEmail.Text);*/
-
+            InitializeComboBoxes();
+            this.StartPosition = FormStartPosition.CenterScreen;
             tbLocation.Select();
+        }
+        private void InitializeComboBoxes()
+        {
+            cbPriority.Items.Clear();
+            cbPriority.Items.AddRange(new object[] { "Low", "Medium", "High", "Critical" });
+
+            cbCategory.Items.Clear();
+            cbCategory.Items.AddRange(new object[] { "Hardware", "Software", "Network" });
         }
 
         //Method loads data from database, to fill in form known information (name, email, phone ect)
         private void LoadData()
         {
-            try
+            string query = "SELECT UserName, Email, Phone FROM dbo.Users WHERE UserID = @UserID";
+
+            using (SqlCommand cmd = new SqlCommand(query, quicktixdbConnection))
             {
+                cmd.Parameters.AddWithValue("@UserId", userId);
 
-                string query = "SELECT UserName, Email, Phone FROM dbo.Users WHERE UserID = @UserID"; 
-
-                using (SqlCommand cmd = new SqlCommand(query, quicktixdbConnection))
+                try
                 {
-                    cmd.Parameters.AddWithValue("@UserId", userId);
-
                     if (quicktixdbConnection.State == ConnectionState.Closed)
                         quicktixdbConnection.Open();
 
@@ -63,15 +64,15 @@ namespace QuickTix
                         }
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error loading user data: " + ex.Message);
-            }
-            finally
-            {
-                if (quicktixdbConnection.State == ConnectionState.Open)
-                    quicktixdbConnection.Close();
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error loading user data: " + ex.Message);
+                }
+                finally
+                {
+                    if (quicktixdbConnection.State == ConnectionState.Open)
+                        quicktixdbConnection.Close();
+                }
             }
         }
 
@@ -88,23 +89,6 @@ namespace QuickTix
             Hardware = 1,
             Software = 2,
             Network = 3
-        }
-
-        private void InitializePriorityComboBox()
-        {
-            cbPriority.Items.Clear();
-            cbPriority.Items.Add("Low");
-            cbPriority.Items.Add("Medium");
-            cbPriority.Items.Add("High");
-            cbPriority.Items.Add("Critical");
-        }
-
-        private void InitializeCategoryComboBox()
-        {
-            cbCategory.Items.Clear();
-            cbCategory.Items.Add("Hardware");
-            cbCategory.Items.Add("Software");
-            cbCategory.Items.Add("Network");
         }
 
         private void cbPriority_SelectedIndexChanged(object sender, EventArgs e)
@@ -136,18 +120,6 @@ namespace QuickTix
         {
             bool isValid = true;
 
-            if (string.IsNullOrEmpty(tbPhone.Text) || !IsValidPhoneNumber(tbPhone.Text))
-            {
-                errorMessage.AppendLine("Please enter a valid phone number.");
-                isValid = false;
-            }
-
-            if (string.IsNullOrEmpty(tbEmail.Text) || !IsValidEmail(tbEmail.Text))
-            {
-                errorMessage.AppendLine("Please enter a valid email address.");
-                isValid = false;
-            }
-
             if (string.IsNullOrEmpty(tbLocation.Text))
             {
                 errorMessage.AppendLine("Please enter a valid location.");
@@ -155,26 +127,6 @@ namespace QuickTix
             }
 
             return isValid;
-        }
-
-        // Email validation
-        private bool IsValidEmail(string email)
-        {
-            try
-            {
-                var addr = new System.Net.Mail.MailAddress(email);
-                return addr.Address == email;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        //Phone validation
-        private bool IsValidPhoneNumber(string phoneNumber)
-        {
-            return System.Text.RegularExpressions.Regex.IsMatch(phoneNumber, @"^\d{3}-?\d{3}-?\d{4}$");
         }
 
         // Validates Ticket Information
@@ -241,33 +193,15 @@ namespace QuickTix
             {
                 return;
             }
-            //TODO: Sprint 3
-            //string phone = tbPhone.Text;
-            //string email = tbEmail.Text;
+
             string location = tbLocation.Text;
-            int priorityId = this.priorityId;
-            int categoryId = this.categoryId;
             string title = tbTitle.Text;
             string description = tbDescription.Text;
             int statusID = 1;
 
-            //TODO: Sprint 3
-            //UpdateUserInfo(phone, email);
-            SaveToDatabase(this.userId, location, priorityId, categoryId, title, description, statusID);
+            SaveToDatabase(this.userId, location, this.priorityId, this.categoryId, title, description, statusID);
         }
 
-        //TODO: Implement user update information for Sprint 3
-
-        /*private void UpdateUserInfo(string phone, string email)
-        {
-            string storedProcedure = "";
-            using (SqlCommand cmd = new SqlCommand()) 
-            {
-                cmd.Parameters.AddWithValue("@Email", email);
-                cmd.Parameters.AddWithValue("@Phone", phone);
-            }
-        } 
-        */
 
         //Submits ticket info to database
         private void SaveToDatabase(int userId, string location,
@@ -293,12 +227,11 @@ namespace QuickTix
                     if (quicktixdbConnection.State == ConnectionState.Closed)
                         quicktixdbConnection.Open();
 
-                    
+
                     cmd.ExecuteNonQuery();
                     quicktixdbConnection.Close();
 
                     MessageBox.Show("Ticket submitted succesfully!");
-
                     ClearFormFields();
                 }
             }
@@ -336,7 +269,7 @@ namespace QuickTix
             tbLocation.Select(); // Set focus to
         }
 
-            private void lgOut_Click(object sender, EventArgs e)
+        private void lgOut_Click(object sender, EventArgs e)
         {
             if (quicktixdbConnection != null && quicktixdbConnection.State == ConnectionState.Open)
             {
@@ -347,6 +280,23 @@ namespace QuickTix
             Application.Restart();
             // Close the current form (AdminForm)
             this.Close();
+        }
+
+        private void lbUpdateContactInfo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            string phone = tbPhone.Text;
+            string email = tbEmail.Text;
+
+            UpdateUserInfo updateUserInfo = new UpdateUserInfo(quicktixdbConnection, userId, phone, email);
+            updateUserInfo.UpdateSuccessful += UpdateUserInfo_UpdateSuccessful;
+            updateUserInfo.ShowDialog();
+
+            lbUpdateContactInfo.LinkVisited = true;
+        }
+        private void UpdateUserInfo_UpdateSuccessful(string newPhone, string newEmail)
+        {
+            tbPhone.Text = newPhone;
+            tbEmail.Text = newEmail;
         }
     }
 }

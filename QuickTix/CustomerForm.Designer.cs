@@ -28,6 +28,7 @@ namespace QuickTix
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             btSubmit = new Button();
             lbTicketInfo = new Label();
             tbDescription = new TextBox();
@@ -40,6 +41,7 @@ namespace QuickTix
             btLgOut = new Button();
             label1 = new Label();
             groupBox1 = new GroupBox();
+            lbUpdateContactInfo = new LinkLabel();
             tbUserName = new TextBox();
             lbUserName = new Label();
             lbPhone = new Label();
@@ -50,6 +52,7 @@ namespace QuickTix
             tbTitle = new TextBox();
             lbSubject = new Label();
             cbCategory = new ComboBox();
+            emailToolTip = new ToolTip(components);
             groupBox1.SuspendLayout();
             TicketDetails.SuspendLayout();
             SuspendLayout();
@@ -122,7 +125,7 @@ namespace QuickTix
             // 
             lbLocation.AutoSize = true;
             lbLocation.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lbLocation.Location = new Point(94, 289);
+            lbLocation.Location = new Point(82, 303);
             lbLocation.Name = "lbLocation";
             lbLocation.Size = new Size(109, 31);
             lbLocation.TabIndex = 26;
@@ -131,7 +134,7 @@ namespace QuickTix
             // tbLocation
             // 
             tbLocation.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            tbLocation.Location = new Point(236, 289);
+            tbLocation.Location = new Point(224, 303);
             tbLocation.Name = "tbLocation";
             tbLocation.Size = new Size(237, 34);
             tbLocation.TabIndex = 4;
@@ -170,6 +173,7 @@ namespace QuickTix
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(lbUpdateContactInfo);
             groupBox1.Controls.Add(tbUserName);
             groupBox1.Controls.Add(lbUserName);
             groupBox1.Controls.Add(lbPhone);
@@ -186,13 +190,25 @@ namespace QuickTix
             groupBox1.TabStop = false;
             groupBox1.Text = "General Information";
             // 
+            // lbUpdateContactInfo
+            // 
+            lbUpdateContactInfo.AutoSize = true;
+            lbUpdateContactInfo.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lbUpdateContactInfo.Location = new Point(112, 244);
+            lbUpdateContactInfo.Name = "lbUpdateContactInfo";
+            lbUpdateContactInfo.Size = new Size(347, 25);
+            lbUpdateContactInfo.TabIndex = 0;
+            lbUpdateContactInfo.TabStop = true;
+            lbUpdateContactInfo.Text = "Need to update your contact information?";
+            lbUpdateContactInfo.LinkClicked += lbUpdateContactInfo_LinkClicked;
+            // 
             // tbUserName
             // 
             tbUserName.BackColor = SystemColors.Control;
             tbUserName.BorderStyle = BorderStyle.None;
             tbUserName.Enabled = false;
             tbUserName.ForeColor = SystemColors.ControlText;
-            tbUserName.Location = new Point(238, 81);
+            tbUserName.Location = new Point(222, 63);
             tbUserName.Name = "tbUserName";
             tbUserName.ReadOnly = true;
             tbUserName.Size = new Size(235, 31);
@@ -203,7 +219,7 @@ namespace QuickTix
             lbUserName.AutoSize = true;
             lbUserName.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbUserName.ForeColor = SystemColors.ControlText;
-            lbUserName.Location = new Point(70, 81);
+            lbUserName.Location = new Point(54, 63);
             lbUserName.Name = "lbUserName";
             lbUserName.Size = new Size(135, 31);
             lbUserName.TabIndex = 32;
@@ -213,7 +229,7 @@ namespace QuickTix
             // 
             lbPhone.AutoSize = true;
             lbPhone.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lbPhone.Location = new Point(24, 150);
+            lbPhone.Location = new Point(10, 120);
             lbPhone.Name = "lbPhone";
             lbPhone.Size = new Size(178, 31);
             lbPhone.TabIndex = 31;
@@ -224,28 +240,30 @@ namespace QuickTix
             tbPhone.BorderStyle = BorderStyle.None;
             tbPhone.Enabled = false;
             tbPhone.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            tbPhone.Location = new Point(236, 150);
+            tbPhone.Location = new Point(222, 120);
             tbPhone.Name = "tbPhone";
             tbPhone.ReadOnly = true;
             tbPhone.Size = new Size(237, 27);
             tbPhone.TabIndex = 2;
+            tbPhone.TextChanged += tbPhone_TextChanged;
             // 
             // tbEmail
             // 
             tbEmail.BorderStyle = BorderStyle.None;
             tbEmail.Enabled = false;
             tbEmail.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            tbEmail.Location = new Point(236, 220);
+            tbEmail.Location = new Point(222, 180);
             tbEmail.Name = "tbEmail";
             tbEmail.ReadOnly = true;
             tbEmail.Size = new Size(237, 27);
             tbEmail.TabIndex = 3;
+            tbEmail.TextChanged += tbEmail_TextChanged;
             // 
             // lbEmail
             // 
             lbEmail.AutoSize = true;
             lbEmail.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lbEmail.Location = new Point(128, 220);
+            lbEmail.Location = new Point(114, 180);
             lbEmail.Name = "lbEmail";
             lbEmail.Size = new Size(76, 31);
             lbEmail.TabIndex = 28;
@@ -345,5 +363,7 @@ namespace QuickTix
         private Label lbUserName;
         private TextBox tbTitle;
         private Label lbSubject;
+        private LinkLabel lbUpdateContactInfo;
+        private ToolTip emailToolTip;
     }
 }

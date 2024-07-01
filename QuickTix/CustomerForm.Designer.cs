@@ -245,7 +245,7 @@ namespace QuickTix
             tbPhone.ReadOnly = true;
             tbPhone.Size = new Size(237, 27);
             tbPhone.TabIndex = 2;
-            tbPhone.TextChanged += tbPhone_TextChanged;
+            
             // 
             // tbEmail
             // 
@@ -257,7 +257,7 @@ namespace QuickTix
             tbEmail.ReadOnly = true;
             tbEmail.Size = new Size(237, 27);
             tbEmail.TabIndex = 3;
-            tbEmail.TextChanged += tbEmail_TextChanged;
+            
             // 
             // lbEmail
             // 

@@ -23,8 +23,7 @@ namespace QuickTix
             this.quicktixdbConnection = sqlConnection;
             this.userId = userId;
             LoadData();
-            this.Load += new System.EventHandler(this.AdminForm_Load);
-
+            InitializeForm();
         }
         private void InitializeForm()
         {
@@ -37,9 +36,8 @@ namespace QuickTix
             cbPriority.Items.Clear();
             cbPriority.Items.AddRange(new object[] { "Low", "Medium", "High", "Critical" });
 
-        private void AdminForm_Load(object sender, EventArgs e)
-        {
-            ColorPalette.ApplyColorPalette(this);
+            cbCategory.Items.Clear();
+            cbCategory.Items.AddRange(new object[] { "Hardware", "Software", "Network" });
         }
 
         //Method loads data from database, to fill in form known information (name, email, phone ect)

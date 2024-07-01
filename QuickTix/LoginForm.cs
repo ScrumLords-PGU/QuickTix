@@ -25,6 +25,12 @@ namespace QuickTix
         public LoginForm()
         {
             InitializeComponent();
+            this.Load += new System.EventHandler(this.AdminForm_Load);
+        }
+
+        private void AdminForm_Load(object sender, EventArgs e)
+        {
+            ColorPalette.ApplyColorPalette(this);
         }
 
         public void btnConnect_Click(object sender, EventArgs e)

@@ -18,8 +18,10 @@ namespace QuickTix
             this.Load += new EventHandler(TechnicianView_Load);
         }
 
+
         private void TechnicianView_Load(object sender, EventArgs e)
         {
+            ColorPalette.ApplyColorPalette(this);
             LoadData();
             LoadCategories();
             LoadPriorities();

@@ -59,5 +59,15 @@ namespace QuickTix.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap XYZ_company_logo {
+            get {
+                object obj = ResourceManager.GetObject("XYZ company logo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

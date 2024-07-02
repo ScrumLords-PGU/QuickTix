@@ -22,6 +22,7 @@ namespace QuickTix
         {
             InitializeComponent();
             this.connection = sqlConnection;
+            this.Load += new System.EventHandler(this.TechnicianForm_Load); // Color Palette //
             LoadData();
         }
 
@@ -82,6 +83,9 @@ namespace QuickTix
 
             // Handle the CellClick event
             dataGridView1.CellClick += DataGridView1_CellClick;
+
+            // Color Palette //
+            ColorPalette.ApplyColorPalette(this);
         }
 
         private void DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)

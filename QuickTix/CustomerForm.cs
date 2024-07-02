@@ -23,8 +23,16 @@ namespace QuickTix
             this.quicktixdbConnection = sqlConnection;
             this.userId = userId;
             LoadData();
+            this.Load += new System.EventHandler(this.CustomerForm_Load); // Color palette //
             InitializeForm();
         }
+
+        // Color palette //
+        private void CustomerForm_Load(object sender, EventArgs e)
+        {
+            ColorPalette.ApplyColorPalette(this);
+        }
+
         private void InitializeForm()
         {
             InitializeComboBoxes();

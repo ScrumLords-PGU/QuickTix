@@ -32,6 +32,13 @@ namespace QuickTix
 
             tbEmail.Text = email;
             tbPhone.Text = phone;
+
+            this.Load += new System.EventHandler(this.UpdateUserInfo_Load); // Color Palette //
+        }
+
+        private void UpdateUserInfo_Load(object sender, EventArgs e)
+        {
+            ColorPalette.ApplyColorPalette(this);
         }
 
         private void cbPhone_CheckedChanged(object sender, EventArgs e)

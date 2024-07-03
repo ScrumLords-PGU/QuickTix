@@ -15,7 +15,7 @@ namespace QuickTix
         {
             quicktixdbConnection = connection;
             InitializeComponent();
-            this.Load += new EventHandler(TechnicianView_Load);
+            this.Load += new EventHandler(TechnicianView_Load); // Color Palette //
         }
 
         private void TechnicianView_Load(object sender, EventArgs e)
@@ -33,6 +33,9 @@ namespace QuickTix
             System.Drawing.Rectangle ScreenSize = Screen.PrimaryScreen.WorkingArea;
             this.Size = new System.Drawing.Size(Convert.ToInt32(0.95 * ScreenSize.Width), Convert.ToInt32(0.97 * ScreenSize.Height));
             this.Location = new System.Drawing.Point(20, 15);
+
+            // Color Palette //
+            ColorPalette.ApplyColorPalette(this);
 
         }
 

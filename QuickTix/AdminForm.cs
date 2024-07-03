@@ -24,7 +24,15 @@ namespace QuickTix
             roleAssignment.Items.Add("Admin");
             roleAssignment.DropDownStyle = ComboBoxStyle.DropDownList;
             roleAssignment.SelectedIndex = 0;
+            this.Load += new System.EventHandler(this.AdminForm_Load); // Color palette //
         }
+
+        // Color Palette //
+        private void AdminForm_Load(object sender, EventArgs e)
+        {
+            ColorPalette.ApplyColorPalette(this);
+        }
+
 
         private void InitializeConnections()
         {
@@ -152,6 +160,11 @@ namespace QuickTix
             Application.Restart();
             // Close the current form (AdminForm)
             this.Close();
+        }
+
+        private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

@@ -27,7 +27,7 @@ namespace QuickTix
 
             if (userRole == "Admin")
             {
-                mainForm = new AdminForm(connection, userName, password);
+                mainForm = new AdminForm(connection, userName, password, userId);
             }
             else if (userRole == "Technician")
             {

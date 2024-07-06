@@ -11,13 +11,15 @@ namespace QuickTix
         private SqlConnection masterConnection;
         private string adminUsername;
         private string adminPassword;
+        private int userId;
 
-        public AdminForm(SqlConnection quicktixdbConnection, string adminUsername, string adminPassword)
+        public AdminForm(SqlConnection quicktixdbConnection, string adminUsername, string adminPassword, int userId)
         {
             InitializeComponent();
             this.quicktixdbConnection = quicktixdbConnection;
             this.adminUsername = adminUsername;
             this.adminPassword = adminPassword;
+            this.userId = userId;
             InitializeConnections();
             roleAssignment.Items.Add("Customer");
             roleAssignment.Items.Add("Technician");
@@ -131,10 +133,9 @@ namespace QuickTix
                 quicktixdbConnection.Open();
             }
 
-            int userId = 0;
-
             CustomerForm mainForm = new CustomerForm(quicktixdbConnection, userId);
             mainForm.Show();
+
             mainForm.FormClosed += (s, args) =>
             {
                 if (quicktixdbConnection.State == ConnectionState.Open)
